@@ -1,0 +1,17 @@
+.dailyReport {
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 400px;
+    height: 200px;
+    border: 2px solid #5c7cff;
+    border-radius: 5px;
+}
+.timeOfCreate{
+    text-align: center;
+    padding-top: 10px;
+    font-size: 16px;
+    font-family: 'Lora', serif;
+}
+.timeOfCreate a {
+    text-decoration: none;
+}

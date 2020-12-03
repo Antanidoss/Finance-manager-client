@@ -1,0 +1,21 @@
+.navbar{
+    grid-area: navbar;
+    background-color: #5c7cff;
+    min-height: 100%;
+    width: 200px;
+}
+.navbar div{
+    text-align: center;
+}
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+    font-family: 'Lora', serif;
+}
+.dailyReports{
+    padding-top: 50px;
+}
+.reportsStory{
+    padding-top: 50px;
+}

@@ -1,0 +1,18 @@
+.selectPage{
+    color: red;
+}
+.pagination{
+    width: 1000px;
+    margin-top: 50px;
+    padding-bottom: 50px;
+}
+.pagination span{
+    border: 2px solid #5c7cff;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+.pagination span a{
+    text-decoration: none;
+    padding: 25px;
+    font-size: 20px;
+}
