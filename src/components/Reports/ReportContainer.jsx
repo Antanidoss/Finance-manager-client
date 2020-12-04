@@ -1,7 +1,7 @@
 import React from "react"
 import Reports from "./Reports";
 import {connect} from "react-redux";
-import {getReportsThunkCreator, updateCurrentPage} from "../../redux/report-reducer";
+import {getReportsThunkCreator, removeReportThunkCreator, updateCurrentPage} from "../../redux/report-reducer";
 import {withRouter} from "react-router-dom";
 
 class ReportContainer extends React.Component {
@@ -23,4 +23,5 @@ let mapStateToProps = (state) => ({
 
 let WithUrlDataContainerComponent = withRouter(ReportContainer);
 
-export default connect(mapStateToProps, {updateCurrentPage, getReports: getReportsThunkCreator})(WithUrlDataContainerComponent);
+export default connect(mapStateToProps,
+    {updateCurrentPage, getReports: getReportsThunkCreator, removeReport: removeReportThunkCreator})(WithUrlDataContainerComponent);

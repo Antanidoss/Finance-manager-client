@@ -4,9 +4,9 @@ import classes from "./Reports.module.css"
 
 class Reports extends React.Component {
     render() {
-        debugger
         let reportElem = this.props.reports.map(r => {
-            return <Report amountSpent={r.amountSpent} descriptionsOfExpenses={r.descriptionsOfExpenses} timeOfCreate={r.timeOfCreate}></Report>
+            return <Report amountSpent={r.amountSpent} descriptionsOfExpenses={r.descriptionsOfExpenses} id={r.id}
+                           timeOfCreate={r.timeOfCreate} removeReport={this.props.removeReport}/>
         })
         let totalPageCount = Math.ceil(this.props.totalReportCount / this.props.pageSize);
         let pages = [];

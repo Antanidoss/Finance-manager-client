@@ -35,7 +35,12 @@ const reportReducer = (state = initialState, action) =>{
                 totalReportCount: action.totalReportCount
             };
         case REMOVE_REPORT:
-            break;
+            debugger
+            let reports = state.reports.filter((r) => r.id !== action.reportId);
+            return {
+                ...state,
+                reports: reports
+            }
         default:
             return state;
     }
@@ -54,13 +59,25 @@ export const updateNewReportAmountSpent = (newReportAmountSpent) => (
 export const updateNewReportDescriptionsOfExpenses = (newReportDescriptionsOfExpenses) => (
     {type: UPDATE_NEW_REPORT_DESCRIPTIONS_OF_EXPENSES, newReportDescriptionsOfExpenses: newReportDescriptionsOfExpenses});
 
+export const removeReport = (reportId) => (
+    {type: REMOVE_REPORT, reportId: reportId})
+
 export const getReportsThunkCreator = (currentPage, pageSize, dailyReportId) => {
-    debugger
     return (dispatch) => {
         let skip = (currentPage - 1) * pageSize;
         reportsApi.getReports(skip, pageSize, dailyReportId)
             .then(res => {
                 dispatch(setReportData(res))
+            })
+    }
+}
+
+export const removeReportThunkCreator = (reportId) => {
+    return (dispatch) => {
+        reportsApi.removeReport(reportId)
+            .then(res => {
+                debugger;
+                dispatch(removeReport(reportId))
             })
     }
 }
