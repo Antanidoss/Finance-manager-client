@@ -1,4 +1,5 @@
 .report{
+    background-color: #c1d3ff;
     margin: 0 auto;
     margin-top: 50px;
     width: 500px;
@@ -8,11 +9,19 @@
     text-align: center;
 }
 .report div{
+    position: relative;
     margin-top: 20px;
 }
 .remove{
+    top: 200px;
+    left: 50px;
     float: left;
 }
 .update{
     float: right;
+    top: 200px;
+    right: 50px;
+}
+.button button{
+
 }

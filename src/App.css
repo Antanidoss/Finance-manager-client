@@ -13,3 +13,17 @@
 .content{
   grid-area: content;
 }
+
+button{
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #0071f0;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 18px;
+}
+button:hover, button:focus {
+  background-color: rgba(0, 113, 240, 0.7);
+}

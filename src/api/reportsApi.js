@@ -8,5 +8,14 @@ export const reportsApi = {
     removeReport(reportId) {
         return instanceAxios.delete(`/Report/remove/${reportId}`)
             .then(res => res.data)
+    },
+    updateReport(amountSpent, descriptionsOfExpenses, reportId) {
+        let updateReport = {amountSpent: amountSpent, descriptionsOfExpenses: descriptionsOfExpenses, reportId: reportId}
+        return instanceAxios.put(`/Report/update`, updateReport)
+            .then(res => res.data)
+    },
+    getReportById(reportId) {
+        return instanceAxios.get(`/Report/get/${reportId}`)
+            .then(res => res.data)
     }
 }

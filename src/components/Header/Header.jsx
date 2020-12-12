@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Header.module.css"
+import {NavLink} from "react-router-dom";
 
 class Header extends React.Component {
     render() {
@@ -10,7 +11,7 @@ class Header extends React.Component {
                     {
                        this.props.isAuthenticated === true
                            ? <div className="userName">{this.props.userName}</div>
-                           : <div className="login"><button>Войти</button></div>
+                           : <div className="login"><NavLink to="/auth">Войти</NavLink></div>
                     }
                 </div>
             </div>

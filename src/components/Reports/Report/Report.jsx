@@ -1,5 +1,6 @@
 import React from "react"
 import classes from "./Report.module.css"
+import {NavLink} from "react-router-dom";
 
 class Report extends React.Component{
     render() {
@@ -18,7 +19,9 @@ class Report extends React.Component{
                     <button onClick={() => this.props.removeReport(this.props.id)}>Удалить</button>
                 </div>
                 <div className={classes.update}>
-                    <button onClick={() => this.props.updateReport(this.props.id)}>Обновить</button>
+                    <NavLink to={`/updateReport/${this.props.id}`}>
+                        Обновить
+                    </NavLink>
                 </div>
             </div>
         )
