@@ -7,6 +7,7 @@ import {
     updateUserPasswordForm
 } from "../../../redux/account-reducer";
 import {connect} from "react-redux";
+import {compose} from "redux";
 
 class AuthContainer extends React.Component {
     render() {
@@ -36,4 +37,7 @@ let mapStateToProps = (state) => ({
     isUserParsistentForm: state.accountPage.isUserParsistentAuthForm
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer)
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps)
+)(AuthContainer)
+

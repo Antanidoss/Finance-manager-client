@@ -8,6 +8,8 @@ import {
     updateReportThunkCreator
 } from "../../../redux/report-reducer";
 import {withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class UpdateReportContainer extends React.Component {
     componentDidMount() {
@@ -19,12 +21,13 @@ class UpdateReportContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
-    return {
+let mapStateToProps = (state) => ({
     report: state.reportPage.report,
     amountSpentForm: state.reportPage.reportAmountSpentUpdateForm,
-    descriptionsOfExpensesForm: state.reportPage.reportDescriptionsOfExpensesUpdateForm
-}}
+    descriptionsOfExpensesForm: state.reportPage.reportDescriptionsOfExpensesUpdateForm,
+    isAuthenticated: state.accountPage.isAuthenticated
+})
+
 let mapDispatchToProps = (dispatch) => ({
     changeAmountSpennt: (e) => {
         dispatch(changeAmountSpentUpdateForm(e.target.value))
@@ -40,6 +43,8 @@ let mapDispatchToProps = (dispatch) => ({
     }
 })
 
-let WithUrlDataContainerComponent = withRouter(UpdateReportContainer);
-
-export default connect(mapStateToProps, mapDispatchToProps)(WithUrlDataContainerComponent)
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter,
+    withAuthRedirect
+)(UpdateReportContainer);

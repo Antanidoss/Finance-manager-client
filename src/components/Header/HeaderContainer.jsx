@@ -3,6 +3,8 @@ import * as axios from "axios";
 import Header from "./Header";
 import {connect} from "react-redux";
 import {setUserData} from "../../redux/account-reducer";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class HeaderContainer extends React.Component{
     constructor(props) {
@@ -12,9 +14,7 @@ class HeaderContainer extends React.Component{
     componentDidMount() {
         axios.get("https://localhost:44378/api/Account/auth/me", {withCredentials:true})
             .then(res => {
-                if (res.data.isAuthenticated === true) {
-                    this.props.setUserData(res.data.user.id, res.data.user.userName);
-                }
+                this.props.setUserData(res.data.user.id, res.data.user.userName);
             })
     }
     render() {
@@ -30,5 +30,8 @@ let mapStateToProps = (state) => {
     userName: state.accountPage.userName,
 }};
 
-export default connect(mapStateToProps, {setUserData})(HeaderContainer);
+export default compose(
+    connect(mapStateToProps, {setUserData}),
+    withAuthRedirect
+)(HeaderContainer);
 

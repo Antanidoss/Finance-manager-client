@@ -8,6 +8,8 @@ import {
     updateReportThunkCreator
 } from "../../redux/report-reducer";
 import {withRouter} from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class ReportContainer extends React.Component {
     componentDidMount() {
@@ -23,11 +25,14 @@ let mapStateToProps = (state) => ({
     pageNumber: state.reportPage.pageNumber,
     totalReportCount: state.reportPage.totalReportCount,
     currentPage: state.reportPage.currentPage,
-    reports: state.reportPage.reports
+    reports: state.reportPage.reports,
+    isAuthenticated: state.accountPage.isAuthenticated
 })
 
-let WithUrlDataContainerComponent = withRouter(ReportContainer);
-
-export default connect(mapStateToProps,
-    {updateCurrentPage, getReports: getReportsThunkCreator, removeReport: removeReportThunkCreator, updateReport: updateReportThunkCreator})
-(WithUrlDataContainerComponent);
+export default compose(
+    connect(mapStateToProps,
+    {updateCurrentPage, getReports: getReportsThunkCreator, removeReport: removeReportThunkCreator,
+        updateReport: updateReportThunkCreator}),
+    withRouter,
+    withAuthRedirect
+)(ReportContainer)
