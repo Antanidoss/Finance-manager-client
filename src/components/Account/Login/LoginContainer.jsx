@@ -1,5 +1,5 @@
 import React from "react"
-import Auth from "./Auth";
+import Login from "./Login";
 import {
     authThunkCreator,
     updateIsUserParsistentForm,
@@ -9,9 +9,9 @@ import {
 import {connect} from "react-redux";
 import {compose} from "redux";
 
-class AuthContainer extends React.Component {
+class LoginContainer extends React.Component {
     render() {
-        return <Auth {...this.props}></Auth>
+        return <Login {...this.props}></Login>
     }
 }
 
@@ -39,5 +39,5 @@ let mapStateToProps = (state) => ({
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps)
-)(AuthContainer)
+)(LoginContainer)
 

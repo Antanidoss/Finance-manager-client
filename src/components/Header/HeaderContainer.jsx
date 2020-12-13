@@ -1,10 +1,9 @@
 import React from "react";
-import * as axios from "axios";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {setUserData} from "../../redux/account-reducer";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {authMeThunkCreator} from "../../redux/account-reducer";
 
 class HeaderContainer extends React.Component{
     constructor(props) {
@@ -12,10 +11,7 @@ class HeaderContainer extends React.Component{
         this.props = props;
     }
     componentDidMount() {
-        axios.get("https://localhost:44378/api/Account/auth/me", {withCredentials:true})
-            .then(res => {
-                this.props.setUserData(res.data.user.id, res.data.user.userName);
-            })
+       this.props.authMe();
     }
     render() {
         return (
@@ -31,7 +27,6 @@ let mapStateToProps = (state) => {
 }};
 
 export default compose(
-    connect(mapStateToProps, {setUserData}),
-    withAuthRedirect
+    connect(mapStateToProps, {authMe: authMeThunkCreator}),
 )(HeaderContainer);
 

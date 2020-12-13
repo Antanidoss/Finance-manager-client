@@ -83,8 +83,19 @@ export const authThunkCreator = (userEmail, userPassword, isUserParsistent) => {
     return (dispatch) => {
         accountApi.auth(userEmail, userPassword, isUserParsistent)
             .then(res => {
-                if(res.succeeded === true){
+                if(res.succeeded) {
                     dispatch(auth())
+                }
+            })
+    }
+}
+
+export const authMeThunkCreator = () => {
+    return (dispatch) => {
+        accountApi.authMe()
+            .then(res => {
+                if(res.isAuthenticated) {
+                    dispatch(setUserData(res.user.id, res.user.userName));
                 }
             })
     }

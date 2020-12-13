@@ -1,6 +1,7 @@
 import React from "react"
 import DailyReport from "./DailyReport/DailyReport";
 import classes from "./DailyReports.module.css"
+import {NavLink} from "react-router-dom";
 
 class DailyReports extends React.Component {
     render() {
@@ -16,6 +17,9 @@ class DailyReports extends React.Component {
         }
         return (
             <div className={classes.dailyReports}>
+                <div className={classes.addReport}>
+                    <NavLink to="/addReport">Создать отчет</NavLink>
+                </div>
                 {dailyReportElem}
                 <div className={classes.pagination}>
                     {

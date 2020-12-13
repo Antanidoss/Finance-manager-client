@@ -1,0 +1,37 @@
+.authForm {
+    width: 400px;
+    margin: 0 auto;
+}
+.authForm input{
+    border-left:none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 2px solid darkgray;
+    margin-top: 100px;
+    font-size: 18px;
+    font-family: 'Lora', serif;
+    width: 300px;
+}
+.authForm input:focus{
+    border-color: #5c7cff;
+}
+.button{
+    margin-top: 50px;
+    margin-left: 50px;
+    display: inline-block;
+}
+.button button{
+    width: 100px;
+    height: 30px;
+}
+.reg{
+    display: inline-block;
+    margin-left: 20px;
+}
+.reg a{
+    text-decoration: none;
+    font-family: 'Lora', serif;
+}
+.isParsistentInput input{
+    width: 150px;
+}

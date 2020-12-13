@@ -95,8 +95,9 @@ export const removeReportThunkCreator = (reportId) => {
     return (dispatch) => {
         reportsApi.removeReport(reportId)
             .then(res => {
-                if(res.succeeded === true)
-                dispatch(removeReport(reportId))
+                if(res.succeeded) {
+                    dispatch(removeReport(reportId))
+                }
             })
     }
 }
@@ -105,8 +106,9 @@ export const updateReportThunkCreator = (amountSpent, descriptionsOfExpenses, re
     return (dispatch) => {
         reportsApi.updateReport(amountSpent, descriptionsOfExpenses, reportId)
             .then(res => {
-                if(res.succeeded === true)
-                dispatch(updateReport())
+                if(res.succeeded) {
+                    dispatch(updateReport())
+                }
             })
     }
 }
