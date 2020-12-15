@@ -17,5 +17,9 @@ export const reportsApi = {
     getReportById(reportId) {
         return instanceAxios.get(`/Report/get/${reportId}`)
             .then(res => res.data)
+    },
+    addReport(amountSpent, descriptionsOfExpenses){
+        return instanceAxios.post("/Report/add", {amountSpent: amountSpent, descriptionsOfExpenses: descriptionsOfExpenses})
+            .then(res => res.data)
     }
 }

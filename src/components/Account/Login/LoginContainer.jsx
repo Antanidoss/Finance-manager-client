@@ -23,7 +23,6 @@ let mapDispatchToProps = (dispatch) => ({
         dispatch(updateUserPasswordForm(e.target.value));
     },
     updateIsUserParsistentForm: (e) => {
-        debugger
         dispatch(updateIsUserParsistentForm(e.target.value));
     },
     auth: (userEmail, userPassword, isUserParsistent) => {

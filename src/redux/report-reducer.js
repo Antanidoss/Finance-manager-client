@@ -123,4 +123,11 @@ export const getReportByIdThunkCreator = (reportId) => {
     }
 }
 
+export const addReportThunkCreator = (amountSpent, descriptionsOfExpenses) => {
+    return (dispatch) => {
+        reportsApi.addReport(amountSpent, descriptionsOfExpenses)
+            .then()
+    }
+}
+
 export default reportReducer;
