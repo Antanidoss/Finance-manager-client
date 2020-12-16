@@ -1,29 +1,42 @@
 import React from "react"
+import {Field, reduxForm} from "redux-form";
 
 class UpdateReport extends React.Component {
+    onSubmit = (formData) => {
+        this.props.updateReport(formData.amountSpent, formData.descriptionsOfExpenses, this.props.report.id);
+    }
     render() {
         debugger
         return (
             <div>
-                <form>
-                    <div>
-                        <label>Сумма траты {this.props.report.amountSpent}</label>
-                        <input type="number" value={this.props.amountSpentForm} onChange={this.props.changeAmountSpennt}/>
-                    </div>
-                    <div>
-                        <label>Описания траты {this.props.report.descriptionsOfExpenses}</label>
-                        <input value={this.props.descriptionsOfExpensesForm} onChange={this.props.changeDescriptionsOfExpenses}/>
-                    </div>
-                    <div>
-                        <button type="reset" onClick={() => this.props.updateReport(this.props.amountSpentForm, this.props.descriptionsOfExpensesForm,
-                            this.props.report.id)}>
-                            Обновить
-                        </button>
-                    </div>
-                </form>
+                <UpdateReportReduxForm {...this.props} onSubmit={this.onSubmit}></UpdateReportReduxForm>
             </div>
         )
     }
 }
+
+const UpdateReportForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <label>Сумма траты {props.report.amountSpent}</label>
+                <Field type="number" name="amountSpent" component="input"></Field>
+            </div>
+            <div>
+                <label>Описания траты {props.report.descriptionsOfExpenses}</label>
+                <Field name="descriptionsOfExpenses" component="input"></Field>
+            </div>
+            <div>
+                <button type="reset">
+                    Обновить
+                </button>
+            </div>
+        </form>
+    )
+}
+
+const UpdateReportReduxForm = reduxForm({
+    form: "updateReport"
+})(UpdateReportForm);
 
 export default UpdateReport;

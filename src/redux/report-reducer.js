@@ -13,24 +13,12 @@ let initialState = {
 
 const SET_REPORTS_DATA = "SET_REPORTS_DATA";
 const SET_REPORT_DATA = "SET_REPORT_DATA";
-const CHANGE_AMOUNT_SPENT_UPDATE_FORM = "CHANGE_AMOUNT_SPENT_UPDATE_FORM"
-const CHANGE_DESCRIPTIONS_OF_EXPENSES_UPDATE_FORM = "CHANGE_DESCRIPTIONS_OF_EXPENSES_UPDATE_FORM"
 const REMOVE_REPORT = "REMOVE_REPORT";
 const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE";
 const UPDATE_REPORT = "UPDATE_REPORT";
 
 const reportReducer = (state = initialState, action) =>{
     switch (action.type) {
-        case CHANGE_AMOUNT_SPENT_UPDATE_FORM:
-            return {
-                ...state,
-                reportAmountSpentUpdateForm: action.newReportAmountSpent
-            };
-        case CHANGE_DESCRIPTIONS_OF_EXPENSES_UPDATE_FORM:
-            return {
-                ...state,
-                reportDescriptionsOfExpensesUpdateForm: action.newReportDescriptionsOfExpenses
-            }
         case SET_REPORTS_DATA:
             return {
                 ...state,
@@ -64,12 +52,6 @@ export const updateCurrentPage = (newCurrentPage) => (
 
 export const setReportsData = (data) => (
     {type: SET_REPORTS_DATA, reports: data.reports, totalReportCount: data.totalReportCount})
-
-export const changeAmountSpentUpdateForm = (newReportAmountSpent) => (
-    {type: CHANGE_AMOUNT_SPENT_UPDATE_FORM, newReportAmountSpent: newReportAmountSpent});
-
-export const changeDescriptionsOfExpensesUpdateForm = (newReportDescriptionsOfExpenses) => (
-    {type: CHANGE_DESCRIPTIONS_OF_EXPENSES_UPDATE_FORM, newReportDescriptionsOfExpenses: newReportDescriptionsOfExpenses});
 
 export const removeReport = (reportId) => (
     {type: REMOVE_REPORT, reportId: reportId})
@@ -126,7 +108,9 @@ export const getReportByIdThunkCreator = (reportId) => {
 export const addReportThunkCreator = (amountSpent, descriptionsOfExpenses) => {
     return (dispatch) => {
         reportsApi.addReport(amountSpent, descriptionsOfExpenses)
-            .then()
+            .then(
+                dispatch()
+            )
     }
 }
 
