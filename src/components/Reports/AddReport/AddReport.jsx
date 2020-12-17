@@ -22,10 +22,10 @@ class AddReport extends React.Component {
 const AddReportForm = (props) => {
         return (
             <form onSubmit={props.handleSubmit} className={classes.addReportForm}>
-                <div className={classes.amountSpent}>
+                <div className={classes.addAmountSpentReport}>
                     <Field placeholder="Сумма траты" component="input" name="amountSpent"></Field>
                 </div>
-                <div className={classes.descriptionsOfExpenses}>
+                <div className={classes.addDescriptionsOfExpensesReport}>
                     <Field placeholder="Описания траты" component="textarea" name="descriptionsOfExpenses"></Field>
                 </div>
                 <div className={classes.addReportButton}>

@@ -4,16 +4,22 @@
     margin-top: 150px;
 }
 .addReportForm input, textarea{
-    margin-top: 50px;
     border: 2px solid #5c7cff;
     border-radius: 10px;
     font-family: 'Lora', serif;
 }
-.amountSpent input{
+.addAmountSpentReport input{
     height: 30px;
     width: 300px;
+    margin-top: 50px;
 }
-.descriptionsOfExpenses textarea{
+.addAmountSpentReport{
+    margin-top: 50px;
+}
+.addDescriptionsOfExpensesReport{
+    margin-top: 50px;
+}
+.addDescriptionsOfExpensesReport textarea{
     resize: none;
     width: 300px;
     height: 150px;
