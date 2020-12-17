@@ -1,0 +1,33 @@
+.addReportForm{
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+.addReportForm input, textarea{
+    margin-top: 50px;
+    border: 2px solid #5c7cff;
+    border-radius: 10px;
+    font-family: 'Lora', serif;
+}
+.amountSpent input{
+    height: 30px;
+    width: 300px;
+}
+.descriptionsOfExpenses textarea{
+    resize: none;
+    width: 300px;
+    height: 150px;
+    overflow: scroll;
+}
+.addReportButton {
+    margin-top: 50px;
+    margin-left: 100px;
+}
+.addReportButton button {
+    height: 25px;
+}
+.addReportText{
+    width: 200px;
+    margin: 0 auto;
+    font-family: 'Lora', serif;
+}

@@ -1,5 +1,6 @@
 import React from "react"
 import {Field, reduxForm} from "redux-form";
+import classes from "./AddReport.module.css"
 
 class AddReport extends React.Component {
     onSubmit = (formData) => {
@@ -9,6 +10,9 @@ class AddReport extends React.Component {
     render() {
         return (
             <div>
+                <div className={classes.addReportText}>
+                    <h2>Создать отчёт</h2>
+                </div>
                 <AddReportReduxForm onSubmit={this.onSubmit}></AddReportReduxForm>
             </div>
         )
@@ -17,14 +21,14 @@ class AddReport extends React.Component {
 
 const AddReportForm = (props) => {
         return (
-            <form onSubmit={props.handleSubmit}>
-                <div>
+            <form onSubmit={props.handleSubmit} className={classes.addReportForm}>
+                <div className={classes.amountSpent}>
                     <Field placeholder="Сумма траты" component="input" name="amountSpent"></Field>
                 </div>
-                <div>
+                <div className={classes.descriptionsOfExpenses}>
                     <Field placeholder="Описания траты" component="textarea" name="descriptionsOfExpenses"></Field>
                 </div>
-                <div>
+                <div className={classes.addReportButton}>
                     <button>
                         Создать отчёт
                     </button>
