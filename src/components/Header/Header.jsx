@@ -10,8 +10,8 @@ class Header extends React.Component {
                 <div className={classes.loginBlock}>
                     {
                        this.props.isAuthenticated === true
-                           ? <div className="userName">{this.props.userName}</div>
-                           : <div className="login"><NavLink to="/auth">Войти</NavLink></div>
+                           ? <div className={classes.userName}><NavLink to="/profile">{this.props.userName}</NavLink></div>
+                           : <div className={classes.login}><NavLink to="/auth">Войти</NavLink></div>
                     }
                 </div>
             </div>

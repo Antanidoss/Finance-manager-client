@@ -7,6 +7,7 @@ import {Route} from "react-router-dom";
 import UpdateReportContainer from "./components/Reports/UpdateReport/UpdateReportContainer";
 import LoginContainer from "./components/Account/Login/LoginContainer";
 import AddReportContainer from "./components/Reports/AddReport/AddReportContainer";
+import ProfileContainer from "./components/Account/Profile/ProfileContainer";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/auth" render={() => (<LoginContainer></LoginContainer>)}></Route>
             <Route path="/updateReport/:reportId" render={() => (<UpdateReportContainer></UpdateReportContainer>)}></Route>
             <Route path="/addReport" render={() => (<AddReportContainer></AddReportContainer>)}></Route>
+            <Route path="/profile" render={() => (<ProfileContainer></ProfileContainer>)}></Route>
         </div>
     </div>
   );

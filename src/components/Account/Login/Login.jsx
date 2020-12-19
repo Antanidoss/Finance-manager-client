@@ -8,7 +8,6 @@ class Login extends React.Component {
         this.props.auth(formData.email, formData.password, formData.isParsistent);
     }
     render() {
-        debugger
         return (
             <div>
               <LoginReduxForm onSubmit={this.onSubmit}></LoginReduxForm>
@@ -31,7 +30,7 @@ const LoginForm = (props) => {
                 <Field component="input" type="checkbox" name="isParsistent"></Field>
             </div>
             <div className={classes.button}>
-                <button type="reset">Войти</button>
+                <button>Войти</button>
             </div>
             <div className={classes.reg}>
                 <NavLink to="/reg">Зарегестрироваться</NavLink>

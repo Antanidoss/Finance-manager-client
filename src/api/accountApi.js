@@ -8,5 +8,9 @@ export const accountApi = {
     authMe() {
         return instanceAxios.get("/Account/auth/me")
             .then(res => res.data)
+    },
+    logout() {
+        return instanceAxios.get("/Account/logout")
+            .then(res => res.data)
     }
 }
