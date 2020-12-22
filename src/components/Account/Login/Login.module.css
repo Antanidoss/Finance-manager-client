@@ -1,8 +1,8 @@
-.authForm {
+.loginForm {
     width: 400px;
     margin: 0 auto;
 }
-.authForm input{
+.loginForm input{
     border-left:none;
     border-right: none;
     border-top: none;
@@ -11,8 +11,9 @@
     font-size: 18px;
     font-family: 'Lora', serif;
     width: 300px;
+    display: inline-block;
 }
-.authForm input:focus{
+.loginForm input:focus{
     border-color: #5c7cff;
 }
 .button{
@@ -32,6 +33,10 @@
     text-decoration: none;
     font-family: 'Lora', serif;
 }
-.isParsistentInput input{
-    width: 150px;
+.formSummaryError {
+    padding: 20px;
+    color: red;
+}
+.loginForm.isParsistent input{
+    width: 50px;
 }

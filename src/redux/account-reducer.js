@@ -1,4 +1,5 @@
 import {accountApi} from "../api/accountApi";
+import {stopSubmit} from "redux-form";
 
 const initialState = {
     isAuthenticated: false,
@@ -52,6 +53,9 @@ export const authThunkCreator = (userEmail, userPassword, isUserParsistent) => {
                 debugger
                 if(res.succeeded) {
                     dispatch(auth())
+                } else {
+                    let action = stopSubmit("login", {_error: res.errors});
+                    dispatch(action);
                 }
             })
     }

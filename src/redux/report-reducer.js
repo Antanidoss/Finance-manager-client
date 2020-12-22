@@ -1,4 +1,5 @@
 import {reportsApi} from "../api/reportsApi";
+import {stopSubmit} from "redux-form";
 
 let initialState = {
     pageSize: 5,
@@ -99,7 +100,12 @@ export const getReportByIdThunkCreator = (reportId) => {
 export const addReportThunkCreator = (amountSpent, descriptionsOfExpenses) => {
     return (dispatch) => {
         reportsApi.addReport(amountSpent, descriptionsOfExpenses)
-            .then()
+            .then( res => {
+                    if(!res.succeeded) {
+                        let action = stopSubmit("addReport", {_error: res.errors});
+                        dispatch(action);
+                    }
+                })
     }
 }
 

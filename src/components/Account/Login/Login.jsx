@@ -26,18 +26,28 @@ const minLengthPassword = minLengthCreator(10);
 const LoginForm = (props) => {
     const Input = Element("input");
     return (
-        <form className={classes.authForm} onSubmit={props.handleSubmit}>
-            <div className={classes.emailInput}>
+        <form className={classes.loginForm} onSubmit={props.handleSubmit}>
+            <div className={classes.email}>
                 <Field component={Input} placeholder="Эл.почта" name="email" validate={[required, maxLengthEmail, minLengthEmail]}></Field>
             </div>
-            <div className={classes.passwordInput}>
+            <div className={classes.password}>
                 <Field component={Input} placeholder="Пароль" type="password" name="password"
                        validate={[required, maxLengthPassword, minLengthPassword]}></Field>
             </div>
-            <div className={classes.isParsistentInput}>
-                <label>Запомнить:</label>
+            <div className={classes.isParsistent}>
                 <Field component={Input} type="checkbox" name="isParsistent"></Field>
+                <label>Запомнить:</label>
             </div>
+            {
+                props.error && props.error.map(e => {
+                    debugger
+                    return (
+                        <div className={classes.formSummaryError}>
+                            {e}
+                        </div>
+                    )
+                })
+            }
             <div className={classes.button}>
                 <button>Войти</button>
             </div>

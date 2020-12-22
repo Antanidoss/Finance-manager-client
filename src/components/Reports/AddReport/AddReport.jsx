@@ -36,6 +36,11 @@ const AddReportForm = (props) => {
                     <Field placeholder="Описания траты" component={Textarea} name="descriptionsOfExpenses"
                            validate={[required, maxLength300, minLength3]}></Field>
                 </div>
+                {
+                    props.error && <div className={classes.formSummaryError}>
+                        {props.error}
+                    </div>
+                }
                 <div className={classes.addReportButton}>
                     <button>
                         Создать отчёт

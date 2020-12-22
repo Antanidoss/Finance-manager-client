@@ -37,3 +37,7 @@
     margin: 0 auto;
     font-family: 'Lora', serif;
 }
+.formSummaryError {
+    padding: 20px;
+    color: red;
+}
