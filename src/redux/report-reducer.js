@@ -5,8 +5,6 @@ let initialState = {
     pageNumber: 1,
     totalReportCount: 0,
     currentPage: 1,
-    reportAmountSpentUpdateForm: 0,
-    reportDescriptionsOfExpensesUpdateForm: "",
     reports:[],
     report: {}
 }
@@ -35,12 +33,6 @@ const reportReducer = (state = initialState, action) =>{
             return {
                 ...state,
                 reports: reports
-            }
-        case UPDATE_REPORT:
-            return {
-                ...state,
-                reportAmountSpentUpdateForm: "",
-                reportDescriptionsOfExpensesUpdateForm: ""
             }
         default:
             return state;
@@ -89,7 +81,6 @@ export const updateReportThunkCreator = (amountSpent, descriptionsOfExpenses, re
         reportsApi.updateReport(amountSpent, descriptionsOfExpenses, reportId)
             .then(res => {
                 if(res.succeeded) {
-                    dispatch(updateReport())
                 }
             })
     }
@@ -108,9 +99,7 @@ export const getReportByIdThunkCreator = (reportId) => {
 export const addReportThunkCreator = (amountSpent, descriptionsOfExpenses) => {
     return (dispatch) => {
         reportsApi.addReport(amountSpent, descriptionsOfExpenses)
-            .then(
-                dispatch()
-            )
+            .then()
     }
 }
 

@@ -2,6 +2,8 @@ import React from "react"
 import classes from "./Login.module.css"
 import {NavLink} from "react-router-dom";
 import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, minLengthCreator, required} from "../../../unitls/validators";
+import {Element} from "../../common/FormsControls/FormsControls";
 
 class Login extends React.Component {
     onSubmit = (formData) => {
@@ -16,18 +18,25 @@ class Login extends React.Component {
     }
 }
 
+const maxLengthEmail = maxLengthCreator(254);
+const minLengthEmail = minLengthCreator(3);
+const maxLengthPassword = maxLengthCreator(100);
+const minLengthPassword = minLengthCreator(10);
+
 const LoginForm = (props) => {
+    const Input = Element("input");
     return (
         <form className={classes.authForm} onSubmit={props.handleSubmit}>
             <div className={classes.emailInput}>
-                <Field component="input" placeholder="Эл.почта" name="email"></Field>
+                <Field component={Input} placeholder="Эл.почта" name="email" validate={[required, maxLengthEmail, minLengthEmail]}></Field>
             </div>
             <div className={classes.passwordInput}>
-                <Field component="input" placeholder="Пароль" type="password" name="password"></Field>
+                <Field component={Input} placeholder="Пароль" type="password" name="password"
+                       validate={[required, maxLengthPassword, minLengthPassword]}></Field>
             </div>
             <div className={classes.isParsistentInput}>
                 <label>Запомнить:</label>
-                <Field component="input" type="checkbox" name="isParsistent"></Field>
+                <Field component={Input} type="checkbox" name="isParsistent"></Field>
             </div>
             <div className={classes.button}>
                 <button>Войти</button>

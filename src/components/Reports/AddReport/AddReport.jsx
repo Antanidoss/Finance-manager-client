@@ -1,6 +1,8 @@
 import React from "react"
 import {Field, reduxForm} from "redux-form";
 import classes from "./AddReport.module.css"
+import {maxLengthCreator, minLengthCreator, required} from "../../../unitls/validators";
+import {Element, Textarea} from "../../common/FormsControls/FormsControls";
 
 class AddReport extends React.Component {
     onSubmit = (formData) => {
@@ -19,14 +21,20 @@ class AddReport extends React.Component {
     }
 }
 
+const maxLength300 = maxLengthCreator(300);
+const minLength3 = minLengthCreator(3);
+
 const AddReportForm = (props) => {
+    const Textarea = Element("textarea");
+    const Input = Element("input")
         return (
             <form onSubmit={props.handleSubmit} className={classes.addReportForm}>
                 <div className={classes.addAmountSpentReport}>
-                    <Field placeholder="Сумма траты" component="input" name="amountSpent"></Field>
+                    <Field placeholder="Сумма траты" component={Input} name="amountSpent" validate={[required]} type="number"></Field>
                 </div>
                 <div className={classes.addDescriptionsOfExpensesReport}>
-                    <Field placeholder="Описания траты" component="textarea" name="descriptionsOfExpenses"></Field>
+                    <Field placeholder="Описания траты" component={Textarea} name="descriptionsOfExpenses"
+                           validate={[required, maxLength300, minLength3]}></Field>
                 </div>
                 <div className={classes.addReportButton}>
                     <button>
