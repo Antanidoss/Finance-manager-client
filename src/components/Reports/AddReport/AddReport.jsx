@@ -29,10 +29,10 @@ const AddReportForm = (props) => {
     const Input = Element("input")
         return (
             <form onSubmit={props.handleSubmit} className={classes.addReportForm}>
-                <div className={classes.addAmountSpentReport}>
+                <div className={classes.amountSpent}>
                     <Field placeholder="Сумма траты" component={Input} name="amountSpent" validate={[required]} type="number"></Field>
                 </div>
-                <div className={classes.addDescriptionsOfExpensesReport}>
+                <div className={classes.descriptionsOfExpenses}>
                     <Field placeholder="Описания траты" component={Textarea} name="descriptionsOfExpenses"
                            validate={[required, maxLength300, minLength3]}></Field>
                 </div>
