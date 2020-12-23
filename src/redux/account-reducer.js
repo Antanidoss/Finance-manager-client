@@ -8,7 +8,7 @@ const initialState = {
 }
 
 const SET_USER_DATA = "SET_USER_DATA";
-const AUTH = "AUTH"
+const AUTH = "AUTH";
 const LOGOUT = "LOGOUT";
 
 const accountReducer = (state = initialState, action) => {
@@ -38,47 +38,42 @@ const accountReducer = (state = initialState, action) => {
 }
 
 export const setUserData = (userId, userName) => ({
-    type: SET_USER_DATA, userId: userId, userName: userName});
+    type: SET_USER_DATA, userId: userId, userName: userName
+});
 
 export const auth = () => ({
-    type: AUTH})
+    type: AUTH
+});
 
 export const logout = () =>({
-    type: LOGOUT})
+    type: LOGOUT
+});
 
-export const authThunkCreator = (userEmail, userPassword, isUserParsistent) => {
-    return (dispatch) => {
-        accountApi.auth(userEmail, userPassword, isUserParsistent)
-            .then(res => {
-                debugger
-                if(res.succeeded) {
-                    dispatch(auth())
-                } else {
-                    let action = stopSubmit("login", {_error: res.errors});
-                    dispatch(action);
-                }
-            })
-    }
+export const authThunkCreator = (userEmail, userPassword, isUserParsistent) => dispatch => {
+    accountApi.auth(userEmail, userPassword, isUserParsistent)
+        .then(res => {
+            if(res.succeeded) {
+                dispatch(auth())
+            } else {
+                let action = stopSubmit("login", {_error: res.errors});
+                    dispatch(action);}
+        })
 }
 
-export const authMeThunkCreator = () => {
-    return (dispatch) => {
-        accountApi.authMe()
-            .then(res => {
-                if(res.isAuthenticated) {
-                    dispatch(setUserData(res.user.id, res.user.userName));
-                }
-            })
-    }
+export const authMeThunkCreator = () => dispatch => {
+    accountApi.authMe()
+        .then(res => {
+            if(res.isAuthenticated) {
+                dispatch(setUserData(res.user.id, res.user.userName));
+            }
+        })
 }
 
-export const logoutThunkCreator = () => {
-    return (dispatch) => {
-        accountApi.logout()
-            .then(res => {
-                dispatch(logout())
-            })
-    }
+export const logoutThunkCreator = () => dispatch => {
+    accountApi.logout()
+        .then(res => {
+            dispatch(logout())
+        })
 }
 
 export default accountReducer;

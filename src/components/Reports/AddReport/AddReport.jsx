@@ -2,7 +2,7 @@ import React from "react"
 import {Field, reduxForm} from "redux-form";
 import classes from "./AddReport.module.css"
 import {maxLengthCreator, minLengthCreator, required} from "../../../unitls/validators";
-import {Element, Textarea} from "../../common/FormsControls/FormsControls";
+import {Element} from "../../common/FormsControls/FormsControls";
 
 class AddReport extends React.Component {
     onSubmit = (formData) => {

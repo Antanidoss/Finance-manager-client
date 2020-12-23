@@ -38,15 +38,12 @@ export const setDailyReportsData = (data) => ({
     type: SET_DAILY_REPORTS_DATA, dailyReports: data.dailyReports, totalDailyReportCount: data.totalDailyReportCount
 });
 
-export const getDailyReportsThunkCreator = (currentPage, pageSize) => {
-    return (dispatch) => {
-        let skip = (currentPage - 1) * pageSize;
-        dailyReportsApi.getDailyReports(skip, pageSize)
-            .then(res => {
-                debugger;
-                dispatch(setDailyReportsData(res))
-            })
-    }
+export const getDailyReportsThunkCreator = (currentPage, pageSize) => dispatch => {
+    let skip = (currentPage - 1) * pageSize;
+    dailyReportsApi.getDailyReports(skip, pageSize)
+        .then(res => {
+            dispatch(setDailyReportsData(res))
+        })
 }
 
 export default dailyReportReducer;
