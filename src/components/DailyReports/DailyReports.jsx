@@ -7,7 +7,6 @@ class DailyReports extends React.Component {
     render() {
         let dailyReportElem = this.props.dailyReports.map(d =>
         {
-            debugger;
             return <DailyReport dailyReport={d}></DailyReport>
         });
         let totalPageCount = Math.ceil(this.props.totalDailyReportCount / this.props.pageSize);
@@ -16,23 +15,26 @@ class DailyReports extends React.Component {
             pages.push(i);
         }
         return (
-            <div className={classes.dailyReports}>
-                <div className={classes.addReport}>
-                    <NavLink to="/addReport">Создать отчет</NavLink>
-                </div>
-                {dailyReportElem}
-                <div className={classes.pagination}>
-                    {
-                        pages.map(p => {
-                            return <span>
-                                <a href="#" className={this.props.currentPage === p && classes.selectPage} onClick={() => {this.props.updateCurrentPage(p)}}>
+        <div className={classes.dailyReports}>
+            <div className={classes.addReport}>
+                <NavLink to="/addReport">Создать отчет</NavLink>
+            </div>
+            {dailyReportElem}
+            <div className={classes.pagination}>
+                {
+                    pages.map(p => {
+                        return <span>
+                                <a href="#" className={this.props.currentPage === p && classes.selectPage}
+                                   onClick={() => {
+                                       this.props.updateCurrentPage(p)
+                                   }}>
                                     {p}
                                 </a>
                             </span>
-                        })
-                    }
-                </div>
+                    })
+                }
             </div>
+        </div>
         )
     }
 }

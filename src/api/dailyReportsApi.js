@@ -4,7 +4,6 @@ export const dailyReportsApi = {
     getDailyReports(skip, take) {
         return instanceAxios.get(`/DailyReport/get/${skip}&${take}`)
             .then(res => {
-                debugger
                 return res.data})
     }
 }

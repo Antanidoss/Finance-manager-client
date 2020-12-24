@@ -5,11 +5,13 @@ const initialState = {
     pageNumber: 1,
     totalDailyReportCount: 0,
     currentPage: 1,
-    dailyReports:[]
+    dailyReports:[],
+    isFetching: false
 };
 
-const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE"
-const SET_DAILY_REPORTS_DATA = "SET_DAILY_REPORTS_DATA"
+const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE";
+const SET_DAILY_REPORTS_DATA = "SET_DAILY_REPORTS_DATA";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
 const dailyReportReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -25,6 +27,11 @@ const dailyReportReducer = (state = initialState, action) => {
                 dailyReports: action.dailyReports,
                 totalDailyReportCount: action.totalDailyReportCount
             }
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
         default:
             return state;
     }
@@ -38,11 +45,18 @@ export const setDailyReportsData = (data) => ({
     type: SET_DAILY_REPORTS_DATA, dailyReports: data.dailyReports, totalDailyReportCount: data.totalDailyReportCount
 });
 
+export const toggleIsFetching = (isFetching) => ({
+    type: TOGGLE_IS_FETCHING, isFetching: isFetching
+})
+
 export const getDailyReportsThunkCreator = (currentPage, pageSize) => dispatch => {
+    dispatch(toggleIsFetching(true));
+    debugger
     let skip = (currentPage - 1) * pageSize;
     dailyReportsApi.getDailyReports(skip, pageSize)
         .then(res => {
             dispatch(setDailyReportsData(res))
+            dispatch(toggleIsFetching(false))
         })
 }
 

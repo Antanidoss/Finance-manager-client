@@ -10,13 +10,21 @@ import {
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import Preloader from "../common/Preloader/Preloader";
 
 class ReportContainer extends React.Component {
     componentDidMount() {
         this.props.getReports(this.props.currentPage, this.props.pageSize, this.props.match.params.dailyReportId)
     }
     render() {
-        return <Reports {...this.props}></Reports>
+        return <>
+            {
+                this.props.isFetching
+                    ? <Preloader></Preloader>
+                    : null
+            }
+                <Reports {...this.props}></Reports>
+            </>
     }
 }
 
@@ -26,7 +34,8 @@ let mapStateToProps = (state) => ({
     totalReportCount: state.reportPage.totalReportCount,
     currentPage: state.reportPage.currentPage,
     reports: state.reportPage.reports,
-    isAuthenticated: state.accountPage.isAuthenticated
+    isAuthenticated: state.accountPage.isAuthenticated,
+    isFetching: state.reportPage.isFetching
 })
 
 export default compose(

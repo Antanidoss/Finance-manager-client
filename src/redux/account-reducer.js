@@ -5,6 +5,7 @@ const initialState = {
     isAuthenticated: false,
     userId: "",
     userName: "",
+    isFetching: false
 }
 
 const SET_USER_DATA = "SET_USER_DATA";
