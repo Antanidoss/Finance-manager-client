@@ -1,0 +1,12 @@
+.name{
+    margin-top: 100px;
+    margin-left: 400px;
+}
+.logoutButton{
+    margin-top: 100px;
+    margin-left: 410px;
+}
+.logoutButton button{
+    width: 100px;
+    height: 25px;
+}
