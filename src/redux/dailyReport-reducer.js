@@ -49,7 +49,7 @@ export const toggleIsFetching = (isFetching) => ({
     type: TOGGLE_IS_FETCHING, isFetching: isFetching
 })
 
-export const getDailyReportsThunkCreator = (currentPage, pageSize) => dispatch => {
+export const requestDailyReportsThunkCreator = (currentPage, pageSize) => dispatch => {
     dispatch(toggleIsFetching(true));
     debugger
     let skip = (currentPage - 1) * pageSize;

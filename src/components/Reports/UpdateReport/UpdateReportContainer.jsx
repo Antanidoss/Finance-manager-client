@@ -2,12 +2,14 @@ import React from "react"
 import UpdateReport from "./UpdateReport";
 import {connect} from "react-redux";
 import {
-    getReportByIdThunkCreator,
+    requestReportByIdThunkCreator,
     updateReportThunkCreator
 } from "../../../redux/report-reducer";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {getReport} from "../../../redux/reports-selectors";
+import {getIsAuthenticated} from "../../../redux/users-selectors";
 
 class UpdateReportContainer extends React.Component {
     componentDidMount() {
@@ -21,8 +23,8 @@ class UpdateReportContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    report: state.reportPage.report,
-    isAuthenticated: state.accountPage.isAuthenticated
+    report: getReport(state),
+    isAuthenticated: getIsAuthenticated(state)
 })
 
 let mapDispatchToProps = (dispatch) => ({
@@ -30,7 +32,7 @@ let mapDispatchToProps = (dispatch) => ({
         updateReportThunkCreator(amountSpent, descriptionsOfExpenses, reportId)(dispatch)
     },
     getReportById: (reportId) => {
-        getReportByIdThunkCreator(reportId)(dispatch);
+        requestReportByIdThunkCreator(reportId)(dispatch);
     }
 })
 

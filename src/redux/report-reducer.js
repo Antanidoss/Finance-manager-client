@@ -7,7 +7,8 @@ let initialState = {
     totalReportCount: 0,
     currentPage: 1,
     reports:[],
-    report: {}
+    report: {},
+    isFetching: false
 }
 
 const SET_REPORTS_DATA = "SET_REPORTS_DATA";
@@ -15,6 +16,7 @@ const SET_REPORT_DATA = "SET_REPORT_DATA";
 const REMOVE_REPORT = "REMOVE_REPORT";
 const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE";
 const UPDATE_REPORT = "UPDATE_REPORT";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
 const reportReducer = (state = initialState, action) =>{
     switch (action.type) {
@@ -35,32 +37,47 @@ const reportReducer = (state = initialState, action) =>{
                 ...state,
                 reports: reports
             }
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
         default:
             return state;
     }
 }
 
 export const updateCurrentPage = (newCurrentPage) => ({
-    type: UPDATE_CURRENT_PAGE, newCurrentPage: newCurrentPage})
+    type: UPDATE_CURRENT_PAGE, newCurrentPage: newCurrentPage
+})
 
 export const setReportsData = (data) => ({
-    type: SET_REPORTS_DATA, reports: data.reports, totalReportCount: data.totalReportCount})
+    type: SET_REPORTS_DATA, reports: data.reports, totalReportCount: data.totalReportCount
+})
 
 export const removeReport = (reportId) => ({
-    type: REMOVE_REPORT, reportId: reportId})
+    type: REMOVE_REPORT, reportId: reportId
+})
 
-export const updateReport = () => (
-    {type: UPDATE_REPORT})
+export const updateReport = () => ({
+    type: UPDATE_REPORT
+})
 
 export const setReportData = (data) => ({
     type: SET_REPORT_DATA, report: {id: data.id, amountSpent: data.amountSpent, descriptionsOfExpenses: data.descriptionsOfExpenses,
             timeOfCreate: data.timeOfCreate}
-    })
+})
 
-export const getReportsThunkCreator = (currentPage, pageSize, dailyReportId) => dispatch => {
+export const toggleIsFetching = (isFetching) => ({
+    type: TOGGLE_IS_FETCHING, isFetching: isFetching
+})
+
+export const requestReportsThunkCreator = (currentPage, pageSize, dailyReportId) => dispatch => {
+    dispatch(toggleIsFetching(true));
     let skip = (currentPage - 1) * pageSize;
     reportsApi.getReports(skip, pageSize, dailyReportId)
         .then(res => {
+            dispatch(toggleIsFetching(false));
             dispatch(setReportsData(res))
         })
 }
@@ -84,7 +101,7 @@ export const updateReportThunkCreator = (amountSpent, descriptionsOfExpenses, re
         })
 }
 
-export const getReportByIdThunkCreator = (reportId) => dispatch => {
+export const requestReportByIdThunkCreator = (reportId) => dispatch => {
     reportsApi.getReportById(reportId)
         .then(res => {
             dispatch(setReportData({id: res.id, amountSpent: res.amountSpent,

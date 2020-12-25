@@ -2,8 +2,8 @@ import React from "react"
 import Reports from "./Reports";
 import {connect} from "react-redux";
 import {
-    getReportsThunkCreator,
-    removeReportThunkCreator,
+    requestReportsThunkCreator,
+    removeReportThunkCreator, toggleIsFetching,
     updateCurrentPage,
     updateReportThunkCreator
 } from "../../redux/report-reducer";
@@ -11,10 +11,18 @@ import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import Preloader from "../common/Preloader/Preloader";
+import {
+    getCurrentPage, getIsFetching,
+    getPageNumber,
+    getPageSize,
+    getReports,
+    getTotalReportCount
+} from "../../redux/reports-selectors";
+import {getIsAuthenticated} from "../../redux/users-selectors";
 
 class ReportContainer extends React.Component {
     componentDidMount() {
-        this.props.getReports(this.props.currentPage, this.props.pageSize, this.props.match.params.dailyReportId)
+        this.props.requestReports(this.props.currentPage, this.props.pageSize, this.props.match.params.dailyReportId)
     }
     render() {
         return <>
@@ -29,19 +37,19 @@ class ReportContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    pageSize: state.reportPage.pageSize,
-    pageNumber: state.reportPage.pageNumber,
-    totalReportCount: state.reportPage.totalReportCount,
-    currentPage: state.reportPage.currentPage,
-    reports: state.reportPage.reports,
-    isAuthenticated: state.accountPage.isAuthenticated,
-    isFetching: state.reportPage.isFetching
+    pageSize: getPageSize(state),
+    pageNumber: getPageNumber(state),
+    totalReportCount: getTotalReportCount(state),
+    currentPage: getCurrentPage(state),
+    reports: getReports(state),
+    isAuthenticated: getIsAuthenticated(state),
+    isFetching: getIsFetching(state)
 })
 
 export default compose(
     connect(mapStateToProps,
-    {updateCurrentPage, getReports: getReportsThunkCreator, removeReport: removeReportThunkCreator,
-        updateReport: updateReportThunkCreator}),
+    {updateCurrentPage, requestReports: requestReportsThunkCreator, removeReport: removeReportThunkCreator,
+        updateReport: updateReportThunkCreator, toggleIsFetching: toggleIsFetching}),
     withRouter,
     withAuthRedirect
 )(ReportContainer)

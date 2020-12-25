@@ -1,9 +1,10 @@
 import React from "react"
-import {logoutThunkCreator} from "../../../redux/account-reducer";
+import {logoutThunkCreator} from "../../../redux/user-reducer";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 import {connect} from "react-redux";
 import Profile from "./Profile";
+import {getIsAuthenticated, getUserId, getUserName} from "../../../redux/users-selectors";
 
 class ProfileContainer extends React.Component {
     render() {
@@ -12,9 +13,9 @@ class ProfileContainer extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    userId: state.accountPage.userId,
-    userName: state.accountPage.userName,
-    isAuthenticated: state.accountPage.isAuthenticated
+    userId: getUserId(state),
+    userName: getUserName(state),
+    isAuthenticated: getIsAuthenticated(state)
 })
 
 let mapDispatchToProps = (dispatch) => ({

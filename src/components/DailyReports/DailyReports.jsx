@@ -25,9 +25,7 @@ class DailyReports extends React.Component {
                     pages.map(p => {
                         return <span>
                                 <a href="#" className={this.props.currentPage === p && classes.selectPage}
-                                   onClick={() => {
-                                       this.props.updateCurrentPage(p)
-                                   }}>
+                                   onClick={() => {this.props.updateCurrentPage(p)}}>
                                     {p}
                                 </a>
                             </span>

@@ -12,7 +12,7 @@ const SET_USER_DATA = "SET_USER_DATA";
 const AUTH = "AUTH";
 const LOGOUT = "LOGOUT";
 
-const accountReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -62,8 +62,9 @@ export const authThunkCreator = (userEmail, userPassword, isUserParsistent) => d
 }
 
 export const authMeThunkCreator = () => dispatch => {
-    accountApi.authMe()
+    return accountApi.authMe()
         .then(res => {
+            debugger
             if(res.isAuthenticated) {
                 dispatch(setUserData(res.user.id, res.user.userName));
             }
@@ -77,4 +78,4 @@ export const logoutThunkCreator = () => dispatch => {
         })
 }
 
-export default accountReducer;
+export default userReducer;

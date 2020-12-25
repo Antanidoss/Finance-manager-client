@@ -9,13 +9,10 @@ class AddReportContainer extends React.Component {
     }
 }
 
-let mapStateToProps = () => ({})
-
 let mapDispatchToProps = (dispatch) => ({
     addReport: (amountSpent, descriptionsOfExpenses) => {
         addReportThunkCreator(amountSpent, descriptionsOfExpenses)(dispatch);
     }
 })
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddReportContainer);
+export default connect(null, mapDispatchToProps)(AddReportContainer);
