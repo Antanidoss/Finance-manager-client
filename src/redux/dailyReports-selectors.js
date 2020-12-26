@@ -1,3 +1,5 @@
+import {createSelector} from "reselect";
+
 export const getPageSize = (state) => {
     return state.dailyReportPage.pageSize
 }
@@ -21,3 +23,7 @@ export const getDailyReports = (state) => {
 export const getIsFetching = (state) => {
     return state.dailyReportPage.isFetching
 }
+
+export const getTotalPageCount = createSelector(getTotalDailyReportCount, getPageSize, (totalDailyReportCount, pageSize) => {
+    return Math.ceil(totalDailyReportCount / pageSize);
+})

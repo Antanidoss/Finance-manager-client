@@ -10,7 +10,7 @@ import {
     getDailyReports, getIsFetching,
     getPageNumber,
     getPageSize,
-    getTotalDailyReportCount
+    getTotalDailyReportCount, getTotalPageCount
 } from "../../redux/dailyReports-selectors";
 import {getIsAuthenticated} from "../../redux/users-selectors";
 
@@ -37,7 +37,8 @@ let mapStateToProps = (state) => ({
     currentPage: getCurrentPage(state),
     dailyReports: getDailyReports(state),
     isAuthenticated: getIsAuthenticated(state),
-    isFetching: getIsFetching(state)
+    isFetching: getIsFetching(state),
+    totalPageCount: getTotalPageCount(state)
 })
 
 export default compose(

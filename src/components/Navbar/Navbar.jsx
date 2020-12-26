@@ -10,7 +10,7 @@ class Navbar extends React.Component{
                     <NavLink to="/dailyReports">Ежедневные отчёты</NavLink>
                 </div>
                 <div className={classes.reportsStory}>
-                    <NavLink to="/reportsHistory">История отчётов</NavLink>
+                    <NavLink to="/reportStatistics">Статистика отчётов</NavLink>
                 </div>
             </div>
         )

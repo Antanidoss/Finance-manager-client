@@ -15,7 +15,7 @@ import {
     getCurrentPage, getIsFetching,
     getPageNumber,
     getPageSize,
-    getReports,
+    getReports, getTotalPageCount,
     getTotalReportCount
 } from "../../redux/reports-selectors";
 import {getIsAuthenticated} from "../../redux/users-selectors";
@@ -43,7 +43,8 @@ let mapStateToProps = (state) => ({
     currentPage: getCurrentPage(state),
     reports: getReports(state),
     isAuthenticated: getIsAuthenticated(state),
-    isFetching: getIsFetching(state)
+    isFetching: getIsFetching(state),
+    totalPageCount: getTotalPageCount(state)
 })
 
 export default compose(

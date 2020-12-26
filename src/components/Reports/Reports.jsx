@@ -8,9 +8,8 @@ class Reports extends React.Component {
             return <Report amountSpent={r.amountSpent} descriptionsOfExpenses={r.descriptionsOfExpenses} id={r.id}
                            timeOfCreate={r.timeOfCreate} removeReport={this.props.removeReport} updateReport={this.props.updateReport}/>
         })
-        let totalPageCount = Math.ceil(this.props.totalReportCount / this.props.pageSize);
         let pages = [];
-        for(let i = 1; i <= totalPageCount; i++) {
+        for(let i = 1; i <= this.props.totalPageCount; i++) {
             pages.push(i);
         }
         return (

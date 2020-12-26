@@ -9,9 +9,8 @@ class DailyReports extends React.Component {
         {
             return <DailyReport dailyReport={d}></DailyReport>
         });
-        let totalPageCount = Math.ceil(this.props.totalDailyReportCount / this.props.pageSize);
         let pages = [];
-        for(let i = 1; i <= totalPageCount; i++){
+        for (let i = 1; i <= this.props.totalPageCount; i++) {
             pages.push(i);
         }
         return (
