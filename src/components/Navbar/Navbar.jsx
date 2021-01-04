@@ -9,9 +9,6 @@ class Navbar extends React.Component{
                 <div className={classes.dailyReports}>
                     <NavLink to="/dailyReports">Ежедневные отчёты</NavLink>
                 </div>
-                <div className={classes.reportsStory}>
-                    <NavLink to="/reportStatistics">Статистика отчётов</NavLink>
-                </div>
             </div>
         )
     }

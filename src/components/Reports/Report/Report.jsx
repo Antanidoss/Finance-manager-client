@@ -7,7 +7,7 @@ class Report extends React.Component{
         return (
             <div className={classes.report}>
                 <div className={classes.timeOfCreate}>
-                    <label>Время создания траты: {this.props.timeOfCreate}</label>
+                    <label>Время создания отчёта: {this.props.timeOfCreate}</label>
                 </div>
                 <div className={classes.descriptionsOfExpenses}>
                     <label>Описания траты: {this.props.descriptionsOfExpenses}</label>

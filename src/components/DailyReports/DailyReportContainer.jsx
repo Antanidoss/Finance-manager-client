@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {connect} from "react-redux";
 import {requestDailyReportsThunkCreator, toggleIsFetching, updateCurrentPage} from "../../redux/dailyReport-reducer";
 import DailyReports from "./DailyReports";
@@ -14,20 +14,19 @@ import {
 } from "../../redux/dailyReports-selectors";
 import {getIsAuthenticated} from "../../redux/users-selectors";
 
-class DailyReportContainer extends React.Component {
-    componentDidMount() {
-        this.props.getDailyReports(this.props.currentPage, this.props.pageSize);
-    }
-    render() {
+const DailyReportContainer = (props) => {
+    useEffect(() => {
+        props.getDailyReports(props.currentPage, props.pageSize);
+    }, [])
         return <>
             {
-                this.props.isFetching
+                props.isFetching
                     ? <Preloader></Preloader>
                     : null
             }
-                <DailyReports {...this.props}></DailyReports>;
+                <DailyReports {...props}></DailyReports>;
             </>
-    }
+
 }
 
 let mapStateToProps = (state) => ({

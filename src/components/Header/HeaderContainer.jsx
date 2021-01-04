@@ -1,24 +1,19 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {compose} from "redux";
 import {getIsAuthenticated, getUserName} from "../../redux/users-selectors";
 
-class HeaderContainer extends React.Component{
-    render() {
-        return (
-            <Header {...this.props}></Header>
-        )
-    }
+const HeaderContainer = (props) => {
+    return (
+        <Header {...props}></Header>
+    )
+
 };
 
-const mapStateToProps = (state) => {
-    return {
+const mapStateToProps = (state) => ({
     isAuthenticated: getIsAuthenticated(state),
     userName: getUserName(state),
-}};
+});
 
-export default compose(
-    connect(mapStateToProps, null)
-)(HeaderContainer);
+export default connect(mapStateToProps, null)(HeaderContainer);
 

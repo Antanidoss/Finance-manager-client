@@ -57,7 +57,8 @@ export const authThunkCreator = (userEmail, userPassword, isUserParsistent) => d
                 dispatch(auth())
             } else {
                 let action = stopSubmit("login", {_error: res.errors});
-                    dispatch(action);}
+                    dispatch(action);
+            }
         })
 }
 
@@ -75,6 +76,17 @@ export const logoutThunkCreator = () => dispatch => {
     accountApi.logout()
         .then(res => {
             dispatch(logout())
+        })
+}
+export const registrationThunkCreator = (name, email, password) => dispatch => {
+    accountApi.registration(name, email, password)
+        .then(res => {
+            if(res.succeeded) {
+                authMeThunkCreator()(dispatch)
+            } else {
+                let action = stopSubmit("registration", {_error: res.errors});
+                dispatch(action);
+            }
         })
 }
 

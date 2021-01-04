@@ -12,5 +12,9 @@ export const accountApi = {
     logout() {
         return instanceAxios.get("/Account/logout")
             .then(res => res.data)
+    },
+    registration(name, email, password) {
+        return instanceAxios.post("/Account/reg", {name: name, email: email, password: password})
+            .then(res => res.data)
     }
 }

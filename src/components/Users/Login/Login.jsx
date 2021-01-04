@@ -40,7 +40,6 @@ const LoginForm = (props) => {
             </div>
             {
                 props.error && props.error.map(e => {
-                    debugger
                     return (
                         <div className={classes.formSummaryError}>
                             {e}

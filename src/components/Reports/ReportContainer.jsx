@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import Reports from "./Reports";
 import {connect} from "react-redux";
 import {
@@ -20,20 +20,19 @@ import {
 } from "../../redux/reports-selectors";
 import {getIsAuthenticated} from "../../redux/users-selectors";
 
-class ReportContainer extends React.Component {
-    componentDidMount() {
-        this.props.requestReports(this.props.currentPage, this.props.pageSize, this.props.match.params.dailyReportId)
-    }
-    render() {
-        return <>
-            {
-                this.props.isFetching
-                    ? <Preloader></Preloader>
-                    : null
-            }
-                <Reports {...this.props}></Reports>
-            </>
-    }
+const ReportContainer = (props) => {
+    useEffect(() => {
+        props.requestReports(props.currentPage, props.pageSize, props.match.params.dailyReportId)
+    }, [])
+    return <>
+        {
+            props.isFetching
+                ? <Preloader></Preloader>
+                : null
+        }
+        <Reports {...props}></Reports>
+    </>
+
 }
 
 let mapStateToProps = (state) => ({
