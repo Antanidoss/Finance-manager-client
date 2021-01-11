@@ -1,24 +1,42 @@
 import {reportsApi} from "../api/reportsApi";
 import {stopSubmit} from "redux-form";
 
-let initialState = {
+export type InitialStateType = {
+    pageSize: number | null
+    pageNumber: number | null
+    totalReportCount: number | null
+    currentPage: number | null
+    reports: Array<ReportType>,
+    report: ReportType,
+    isFetching: boolean
+}
+
+export type ReportType = {
+    id: number | null,
+    amountSpent: number | null,
+    descriptionsOfExpenses: string | null
+    timeOfCreate: string | null
+
+}
+
+let initialState : InitialStateType = {
     pageSize: 5,
     pageNumber: 1,
     totalReportCount: 0,
     currentPage: 1,
-    reports:[],
-    report: {},
+    reports: null,
+    report: null,
     isFetching: false
 }
 
-const SET_REPORTS_DATA = "SET_REPORTS_DATA";
-const SET_REPORT_DATA = "SET_REPORT_DATA";
-const REMOVE_REPORT = "REMOVE_REPORT";
-const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE";
-const UPDATE_REPORT = "UPDATE_REPORT";
-const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+const SET_REPORTS_DATA:string = "SET_REPORTS_DATA";
+const SET_REPORT_DATA:string = "SET_REPORT_DATA";
+const REMOVE_REPORT:string = "REMOVE_REPORT";
+const UPDATE_CURRENT_PAGE:string = "UPDATE_CURRENT_PAGE";
+const UPDATE_REPORT:string = "UPDATE_REPORT";
+const TOGGLE_IS_FETCHING:string = "TOGGLE_IS_FETCHING";
 
-const reportReducer = (state = initialState, action) =>{
+const reportReducer = (state = initialState, action) : InitialStateType => {
     switch (action.type) {
         case SET_REPORTS_DATA:
             return {
@@ -47,28 +65,46 @@ const reportReducer = (state = initialState, action) =>{
     }
 }
 
-export const updateCurrentPage = (newCurrentPage) => ({
+type UpdateCurrentPageType = {
+    type: typeof UPDATE_CURRENT_PAGE, newCurrentPage: number
+}
+export const updateCurrentPage = (newCurrentPage) : UpdateCurrentPageType => ({
     type: UPDATE_CURRENT_PAGE, newCurrentPage: newCurrentPage
 })
 
-export const setReportsData = (data) => ({
+type SetReportsDataType = {
+    type: typeof SET_REPORTS_DATA, reports: Array<ReportType>, totalReportCount: number
+}
+export const setReportsData = (data) : SetReportsDataType => ({
     type: SET_REPORTS_DATA, reports: data.reports, totalReportCount: data.totalReportCount
 })
 
-export const removeReport = (reportId) => ({
+type RemoveReportType = {
+    type: typeof REMOVE_REPORT, reportId: number
+}
+export const removeReport = (reportId) : RemoveReportType => ({
     type: REMOVE_REPORT, reportId: reportId
 })
 
-export const updateReport = () => ({
+type UpdateReportType = {
+    type: typeof UPDATE_REPORT
+}
+export const updateReport = () : UpdateReportType => ({
     type: UPDATE_REPORT
 })
 
-export const setReportData = (data) => ({
+type SetReportDataType = {
+    type: typeof SET_REPORT_DATA, report: ReportType
+}
+export const setReportData = (data: any) : SetReportDataType => ({
     type: SET_REPORT_DATA, report: {id: data.id, amountSpent: data.amountSpent, descriptionsOfExpenses: data.descriptionsOfExpenses,
-            timeOfCreate: data.timeOfCreate}
+    timeOfCreate: data.timeOfCreate}
 })
 
-export const toggleIsFetching = (isFetching) => ({
+type ToggleIsFetchingType = {
+    type: typeof TOGGLE_IS_FETCHING, isFetching: boolean
+}
+export const toggleIsFetching = (isFetching) : ToggleIsFetchingType => ({
     type: TOGGLE_IS_FETCHING, isFetching: isFetching
 })
 
