@@ -6,7 +6,6 @@ import {Element} from "../../common/FormsControls/FormsControls";
 
 class AddReport extends React.Component {
     onSubmit = (formData) => {
-        debugger;
         this.props.addReport(formData.amountSpent, formData.descriptionsOfExpenses)
     }
     render() {
