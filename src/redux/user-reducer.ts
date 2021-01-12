@@ -1,18 +1,25 @@
 import {accountApi} from "../api/accountApi";
 import {stopSubmit} from "redux-form";
 
-const initialState = {
+export type InitialStateType = {
+    isAuthenticated: boolean,
+    userId: string | null,
+    userName: string | null,
+    isFetching: boolean
+}
+
+const initialState : InitialStateType = {
     isAuthenticated: false,
-    userId: "",
-    userName: "",
+    userId: null,
+    userName: null,
     isFetching: false
 }
 
-const SET_USER_DATA = "SET_USER_DATA";
-const AUTH = "AUTH";
-const LOGOUT = "LOGOUT";
+const SET_USER_DATA: string = "SET_USER_DATA";
+const AUTH: string = "AUTH";
+const LOGOUT: string= "LOGOUT";
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -38,21 +45,30 @@ const userReducer = (state = initialState, action) => {
     }
 }
 
-export const setUserData = (userId, userName) => ({
+type SetUserDataType = {
+    type: typeof SET_USER_DATA, userId: string, userName: string
+}
+export const setUserData = (userId: string, userName: string): SetUserDataType => ({
     type: SET_USER_DATA, userId: userId, userName: userName
 });
 
-export const auth = () => ({
+type AuthType = {
+    type: typeof AUTH
+}
+export const auth = (): AuthType => ({
     type: AUTH
 });
 
-export const logout = () =>({
+type LogoutType = {
+    type: typeof LOGOUT
+}
+export const logout = (): LogoutType =>({
     type: LOGOUT
 });
 
-export const authThunkCreator = (userEmail, userPassword, isUserParsistent) => dispatch => {
+export const authThunkCreator = (userEmail: string, userPassword: string, isUserParsistent: boolean) => (dispatch: any) => {
     accountApi.auth(userEmail, userPassword, isUserParsistent)
-        .then(res => {
+        .then((res : any) => {
             if(res.succeeded) {
                 dispatch(auth())
             } else {
@@ -62,9 +78,9 @@ export const authThunkCreator = (userEmail, userPassword, isUserParsistent) => d
         })
 }
 
-export const authMeThunkCreator = () => dispatch => {
+export const authMeThunkCreator = () => (dispatch: any) => {
     return accountApi.authMe()
-        .then(res => {
+        .then((res: any) => {
             debugger
             if(res.isAuthenticated) {
                 dispatch(setUserData(res.user.id, res.user.userName));
@@ -72,15 +88,15 @@ export const authMeThunkCreator = () => dispatch => {
         })
 }
 
-export const logoutThunkCreator = () => dispatch => {
+export const logoutThunkCreator = () => (dispatch: any) => {
     accountApi.logout()
-        .then(res => {
+        .then((res : any) => {
             dispatch(logout())
         })
 }
-export const registrationThunkCreator = (name, email, password) => dispatch => {
+export const registrationThunkCreator = (name: string, email: string, password: string) => (dispatch: any) => {
     accountApi.registration(name, email, password)
-        .then(res => {
+        .then((res: any) => {
             if(res.succeeded) {
                 authMeThunkCreator()(dispatch)
             } else {

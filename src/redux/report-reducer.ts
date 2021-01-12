@@ -29,14 +29,14 @@ let initialState : InitialStateType = {
     isFetching: false
 }
 
-const SET_REPORTS_DATA:string = "SET_REPORTS_DATA";
-const SET_REPORT_DATA:string = "SET_REPORT_DATA";
-const REMOVE_REPORT:string = "REMOVE_REPORT";
-const UPDATE_CURRENT_PAGE:string = "UPDATE_CURRENT_PAGE";
-const UPDATE_REPORT:string = "UPDATE_REPORT";
-const TOGGLE_IS_FETCHING:string = "TOGGLE_IS_FETCHING";
+const SET_REPORTS_DATA: string = "SET_REPORTS_DATA";
+const SET_REPORT_DATA: string = "SET_REPORT_DATA";
+const REMOVE_REPORT: string = "REMOVE_REPORT";
+const UPDATE_CURRENT_PAGE: string = "UPDATE_CURRENT_PAGE";
+const UPDATE_REPORT: string = "UPDATE_REPORT";
+const TOGGLE_IS_FETCHING: string = "TOGGLE_IS_FETCHING";
 
-const reportReducer = (state = initialState, action : any) : InitialStateType => {
+const reportReducer = (state = initialState, action: any) : InitialStateType => {
     switch (action.type) {
         case SET_REPORTS_DATA:
             return {
@@ -67,35 +67,35 @@ const reportReducer = (state = initialState, action : any) : InitialStateType =>
 type UpdateCurrentPageType = {
     type: typeof UPDATE_CURRENT_PAGE, newCurrentPage: number
 }
-export const updateCurrentPage = (newCurrentPage: number) : UpdateCurrentPageType => ({
+export const updateCurrentPage = (newCurrentPage: number): UpdateCurrentPageType => ({
     type: UPDATE_CURRENT_PAGE, newCurrentPage: newCurrentPage
 })
 
 type SetReportsDataType = {
     type: typeof SET_REPORTS_DATA, reports: Array<ReportType>, totalReportCount: number
 }
-export const setReportsData = (data: any) : SetReportsDataType => ({
+export const setReportsData = (data: any): SetReportsDataType => ({
     type: SET_REPORTS_DATA, reports: data.reports, totalReportCount: data.totalReportCount
 })
 
 type RemoveReportType = {
     type: typeof REMOVE_REPORT, reportId: number
 }
-export const removeReport = (reportId: number) : RemoveReportType => ({
+export const removeReport = (reportId: number): RemoveReportType => ({
     type: REMOVE_REPORT, reportId: reportId
 })
 
 type UpdateReportType = {
     type: typeof UPDATE_REPORT
 }
-export const updateReport = () : UpdateReportType => ({
+export const updateReport = (): UpdateReportType => ({
     type: UPDATE_REPORT
 })
 
 type SetReportDataType = {
     type: typeof SET_REPORT_DATA, report: ReportType
 }
-export const setReportData = (data: any) : SetReportDataType => ({
+export const setReportData = (data: any): SetReportDataType => ({
     type: SET_REPORT_DATA, report: {id: data.id, amountSpent: data.amountSpent, descriptionsOfExpenses: data.descriptionsOfExpenses,
     timeOfCreate: data.timeOfCreate}
 })
@@ -103,11 +103,11 @@ export const setReportData = (data: any) : SetReportDataType => ({
 type ToggleIsFetchingType = {
     type: typeof TOGGLE_IS_FETCHING, isFetching: boolean
 }
-export const toggleIsFetching = (isFetching : boolean) : ToggleIsFetchingType => ({
+export const toggleIsFetching = (isFetching : boolean): ToggleIsFetchingType => ({
     type: TOGGLE_IS_FETCHING, isFetching: isFetching
 })
 
-export const requestReportsThunkCreator = (currentPage : number, pageSize : number, dailyReportId : number) => (dispatch : any) => {
+export const requestReportsThunkCreator = (currentPage: number, pageSize: number, dailyReportId: number) => (dispatch: any) => {
     dispatch(toggleIsFetching(true));
     let skip = (currentPage - 1) * pageSize;
     reportsApi.getReports(skip, pageSize, dailyReportId)
@@ -117,7 +117,7 @@ export const requestReportsThunkCreator = (currentPage : number, pageSize : numb
         })
 }
 
-export const removeReportThunkCreator = (reportId : number) => (dispatch : any) => {
+export const removeReportThunkCreator = (reportId: number) => (dispatch: any) => {
     reportsApi.removeReport(reportId)
         .then((res: any) => {
             if(res.succeeded) {
@@ -126,9 +126,9 @@ export const removeReportThunkCreator = (reportId : number) => (dispatch : any) 
         })
 }
 
-export const updateReportThunkCreator = (amountSpent : number, descriptionsOfExpenses : string, reportId : number) => (dispatch: any) => {
+export const updateReportThunkCreator = (amountSpent: number, descriptionsOfExpenses: string, reportId: number) => (dispatch: any) => {
     reportsApi.updateReport(amountSpent, descriptionsOfExpenses, reportId)
-        .then((res : any) => {
+        .then((res: any) => {
             if(!res.succeeded) {
                 let action = stopSubmit("updateReport", {_error: res.errors});
                 dispatch(action);
@@ -136,17 +136,17 @@ export const updateReportThunkCreator = (amountSpent : number, descriptionsOfExp
         })
 }
 
-export const requestReportByIdThunkCreator = (reportId : number) => (dispatch: any) => {
+export const requestReportByIdThunkCreator = (reportId: number) => (dispatch: any) => {
     reportsApi.getReportById(reportId)
-        .then((res : any) => {
+        .then((res: any) => {
             dispatch(setReportData({id: res.id, amountSpent: res.amountSpent,
                 descriptionsOfExpenses: res.descriptionsOfExpenses, timeOfCreate: res.timeOfCreate}))
         })
 }
 
-export const addReportThunkCreator = (amountSpent: number, descriptionsOfExpenses : string) => (dispatch : any) => {
+export const addReportThunkCreator = (amountSpent: number, descriptionsOfExpenses: string) => (dispatch: any) => {
     reportsApi.addReport(amountSpent, descriptionsOfExpenses)
-        .then( (res : any) => {
+        .then( (res: any) => {
             if(!res.succeeded) {
                 let action = stopSubmit("addReport", {_error: res.errors});
                 dispatch(action);
