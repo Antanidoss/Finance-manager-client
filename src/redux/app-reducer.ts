@@ -1,12 +1,16 @@
 import {authMeThunkCreator} from "./user-reducer";
 
-let initialState = {
+type InitialStateType = {
+    initialized: boolean
+}
+
+let initialState: InitialStateType = {
     initialized: false
 }
 
 const INITIALIZED_SUCCESS  = "SET_INITIALIZED_SUCCESS"
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case INITIALIZED_SUCCESS:
             return {
@@ -18,11 +22,14 @@ const appReducer = (state = initialState, action) => {
     }
 }
 
-export const initializedSuccess = () => ({
+type InitializedSuccessType = {
+    type: typeof INITIALIZED_SUCCESS
+}
+export const initializedSuccess = (): InitializedSuccessType => ({
     type: INITIALIZED_SUCCESS
 })
 
-export const initializeThunkCreator = () => dispatch => {
+export const initializeThunkCreator = () => (dispatch: any) => {
     let promise = authMeThunkCreator()(dispatch)
     Promise.all([promise])
         .then(() => {

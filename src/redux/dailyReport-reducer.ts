@@ -6,10 +6,10 @@ export type DailyReportType = {
 }
 
 export type InitialStateType = {
-    pageSize: number | null,
-    pageNumber: number | null,
+    pageSize: number,
+    pageNumber: number,
     totalDailyReportCount: number | null,
-    currentPage: number | null,
+    currentPage: number,
     dailyReports: Array<DailyReportType> | null,
     isFetching: boolean
 }

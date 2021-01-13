@@ -27,7 +27,7 @@ type MapStateToPropsType = {
     pageNumber: number,
     totalReportCount: number,
     currentPage: number,
-    reports: ReportType | null,
+    reports: Array<ReportType> | null,
     isAuthenticated: boolean,
     isFetching: boolean,
     totalPageCount: number

@@ -2,10 +2,10 @@ import {reportsApi} from "../api/reportsApi";
 import {stopSubmit} from "redux-form";
 
 export type InitialStateType = {
-    pageSize: number | null
-    pageNumber: number | null
+    pageSize: number
+    pageNumber: number
     totalReportCount: number | null
-    currentPage: number | null
+    currentPage: number
     reports: Array<ReportType> | null,
     report: ReportType | null,
     isFetching: boolean
