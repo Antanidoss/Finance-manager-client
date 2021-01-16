@@ -64,10 +64,10 @@ export const updateCurrentPage = (newCurrentPage: number): UpdateCurrentPageType
 })
 
 type SetDailyReportsDataType = {
-    type: typeof SET_DAILY_REPORTS_DATA, dailyReports: Array<DailyReportType>, totalDailyReportCount: number
+    type: typeof SET_DAILY_REPORTS_DATA, dailyReports: Array<DailyReportType> | null, totalDailyReportCount: number
 }
-export const setDailyReportsData = (data: any): SetDailyReportsDataType => ({
-    type: SET_DAILY_REPORTS_DATA, dailyReports: data.dailyReports, totalDailyReportCount: data.totalDailyReportCount
+export const setDailyReportsData = (dailyReports: Array<DailyReportType> | null, totalDailyReportCount: number): SetDailyReportsDataType => ({
+    type: SET_DAILY_REPORTS_DATA, dailyReports: dailyReports, totalDailyReportCount: totalDailyReportCount
 });
 
 type ToggleIsFetchingType = {
@@ -86,7 +86,7 @@ export const requestDailyReportsThunkCreator = (currentPage: number, pageSize: n
         let skip = (currentPage - 1) * pageSize;
         let data = await dailyReportsApi.getDailyReports(skip, pageSize)
 
-        dispatch(setDailyReportsData(data.res))
+        dispatch(setDailyReportsData(data.dailyReports, data.totalDailyReportCount))
         dispatch(toggleIsFetching(false))
     }
 }
