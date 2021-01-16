@@ -17,7 +17,6 @@ class UpdateReportContainer extends React.Component {
     }
 
     render() {
-        debugger
         return <UpdateReport {...this.props}></UpdateReport>
     }
 }
@@ -27,17 +26,8 @@ let mapStateToProps = (state) => ({
     isAuthenticated: getIsAuthenticated(state)
 })
 
-let mapDispatchToProps = (dispatch) => ({
-    updateReport: (amountSpent, descriptionsOfExpenses, reportId) => {
-        updateReportThunkCreator(amountSpent, descriptionsOfExpenses, reportId)(dispatch)
-    },
-    getReportById: (reportId) => {
-        requestReportByIdThunkCreator(reportId)(dispatch);
-    }
-})
-
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps, {updateReport: updateReportThunkCreator, getReportById: requestReportByIdThunkCreator}),
     withRouter,
     withAuthRedirect
 )(UpdateReportContainer);

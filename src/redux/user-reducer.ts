@@ -1,5 +1,8 @@
 import {accountApi} from "../api/accountApi";
 import {stopSubmit} from "redux-form";
+import {AppStoreType} from "./redux-store";
+import {ThunkAction} from "redux-thunk";
+import {Dispatch} from "redux";
 
 export type InitialStateType = {
     isAuthenticated: boolean,
@@ -15,11 +18,11 @@ const initialState : InitialStateType = {
     isFetching: false
 }
 
-const SET_USER_DATA: string = "SET_USER_DATA";
-const AUTH: string = "AUTH";
-const LOGOUT: string= "LOGOUT";
+const SET_USER_DATA = "SET_USER_DATA";
+const AUTH = "AUTH";
+const LOGOUT = "LOGOUT";
 
-const userReducer = (state = initialState, action: any) => {
+const userReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -66,44 +69,49 @@ export const logout = (): LogoutType =>({
     type: LOGOUT
 });
 
-export const authThunkCreator = (userEmail: string, userPassword: string, isUserParsistent: boolean) => (dispatch: any) => {
-    accountApi.auth(userEmail, userPassword, isUserParsistent)
-        .then((res : any) => {
-            if(res.succeeded) {
-                dispatch(auth())
-            } else {
-                let action = stopSubmit("login", {_error: res.errors});
-                    dispatch(action);
-            }
-        })
+type ActionsTypes = SetUserDataType | AuthType | LogoutType;
+type ThunkType = ThunkAction<Promise<void>, AppStoreType, unknown, ActionsTypes>;
+type GetStateType = () => AppStoreType;
+
+export const authThunkCreator = (userEmail: string, userPassword: string, isUserParsistent: boolean): ThunkType => {
+    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+        let data = await accountApi.auth(userEmail, userPassword, isUserParsistent);
+        if (data.succeeded) {
+            dispatch(auth())
+        } else {
+            let action = stopSubmit("login", {_error: data.errors});
+            dispatch(action);
+        }
+    }
 }
 
-export const authMeThunkCreator = () => (dispatch: any) => {
-    return accountApi.authMe()
-        .then((res: any) => {
-            debugger
-            if(res.isAuthenticated) {
-                dispatch(setUserData(res.user.id, res.user.userName));
-            }
-        })
+export const authMeThunkCreator = (): ThunkType => {
+    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+        let data = await accountApi.authMe();
+        if (data.isAuthenticated) {
+            dispatch(setUserData(data.user.id, data.user.userName));
+        }
+    }
 }
 
-export const logoutThunkCreator = () => (dispatch: any) => {
-    accountApi.logout()
-        .then((res : any) => {
-            dispatch(logout())
-        })
+export const logoutThunkCreator = (): ThunkType => {
+    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+        await accountApi.logout();
+        dispatch(logout());
+    }
 }
-export const registrationThunkCreator = (name: string, email: string, password: string) => (dispatch: any) => {
-    accountApi.registration(name, email, password)
-        .then((res: any) => {
-            if(res.succeeded) {
-                authMeThunkCreator()(dispatch)
-            } else {
-                let action = stopSubmit("registration", {_error: res.errors});
-                dispatch(action);
-            }
-        })
+
+export const registrationThunkCreator = (name: string, email: string, password: string): ThunkType  => {
+    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+        let data = await accountApi.registration(name, email, password)
+        if (data.succeeded) {
+            await authMeThunkCreator()
+        } else {
+            let action = stopSubmit("registration", {_error: data.errors});
+            dispatch(action);
+        }
+
+    }
 }
 
 export default userReducer;

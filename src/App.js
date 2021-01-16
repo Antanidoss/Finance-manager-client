@@ -8,7 +8,7 @@ import UpdateReportContainer from "./components/Reports/UpdateReport/UpdateRepor
 import LoginContainer from "./components/Users/Login/LoginContainer";
 import AddReportContainer from "./components/Reports/AddReport/AddReportContainer";
 import ProfileContainer from "./components/Users/Profile/ProfileContainer";
-import {Component, useEffect} from "react";
+import {useEffect} from "react";
 import {connect} from "react-redux";
 import Preloader from "./components/common/Preloader/Preloader";
 import {initializeThunkCreator} from "./redux/app-reducer";

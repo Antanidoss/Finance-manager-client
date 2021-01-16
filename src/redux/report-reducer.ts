@@ -1,5 +1,8 @@
 import {reportsApi} from "../api/reportsApi";
 import {stopSubmit} from "redux-form";
+import {ThunkAction} from "redux-thunk";
+import {AppStoreType} from "./redux-store";
+import {Dispatch} from "redux";
 
 export type InitialStateType = {
     pageSize: number
@@ -29,14 +32,14 @@ let initialState : InitialStateType = {
     isFetching: false
 }
 
-const SET_REPORTS_DATA: string = "SET_REPORTS_DATA";
-const SET_REPORT_DATA: string = "SET_REPORT_DATA";
-const REMOVE_REPORT: string = "REMOVE_REPORT";
-const UPDATE_CURRENT_PAGE: string = "UPDATE_CURRENT_PAGE";
-const UPDATE_REPORT: string = "UPDATE_REPORT";
-const TOGGLE_IS_FETCHING: string = "TOGGLE_IS_FETCHING";
+const SET_REPORTS_DATA = "SET_REPORTS_DATA";
+const SET_REPORT_DATA = "SET_REPORT_DATA";
+const REMOVE_REPORT = "REMOVE_REPORT";
+const UPDATE_CURRENT_PAGE = "UPDATE_CURRENT_PAGE";
+const UPDATE_REPORT = "UPDATE_REPORT";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
-const reportReducer = (state = initialState, action: any) : InitialStateType => {
+const reportReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case SET_REPORTS_DATA:
             return {
@@ -107,51 +110,57 @@ export const toggleIsFetching = (isFetching : boolean): ToggleIsFetchingType => 
     type: TOGGLE_IS_FETCHING, isFetching: isFetching
 })
 
-export const requestReportsThunkCreator = (currentPage: number, pageSize: number, dailyReportId: number) => (dispatch: any) => {
-    dispatch(toggleIsFetching(true));
-    let skip = (currentPage - 1) * pageSize;
-    reportsApi.getReports(skip, pageSize, dailyReportId)
-        .then((res: any) => {
-            dispatch(toggleIsFetching(false));
-            dispatch(setReportsData(res))
-        })
+type ActionsTypes = UpdateCurrentPageType | SetReportsDataType | RemoveReportType | UpdateReportType | SetReportDataType | ToggleIsFetchingType;
+type ThunkType = ThunkAction<Promise<void>, AppStoreType, unknown, ActionsTypes>;
+type GetStateType = () => AppStoreType;
+
+export const requestReportsThunkCreator = (currentPage: number, pageSize: number, dailyReportId: number): ThunkType => {
+    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+        dispatch(toggleIsFetching(true));
+        let skip = (currentPage - 1) * pageSize;
+        let data = await reportsApi.getReports(skip, pageSize, dailyReportId);
+        dispatch(toggleIsFetching(false));
+        dispatch(setReportsData(data))
+    }
 }
 
-export const removeReportThunkCreator = (reportId: number) => (dispatch: any) => {
-    reportsApi.removeReport(reportId)
-        .then((res: any) => {
-            if(res.succeeded) {
+export const removeReportThunkCreator = (reportId: number): ThunkType => {
+        return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+            let data = await reportsApi.removeReport(reportId);
+            if (data.succeeded) {
                 dispatch(removeReport(reportId))
             }
-        })
+    }
 }
 
-export const updateReportThunkCreator = (amountSpent: number, descriptionsOfExpenses: string, reportId: number) => (dispatch: any) => {
-    reportsApi.updateReport(amountSpent, descriptionsOfExpenses, reportId)
-        .then((res: any) => {
-            if(!res.succeeded) {
-                let action = stopSubmit("updateReport", {_error: res.errors});
-                dispatch(action);
-            }
-        })
+export const updateReportThunkCreator = (amountSpent: number, descriptionsOfExpenses: string, reportId: number): ThunkType => {
+    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+        let data = await reportsApi.updateReport(amountSpent, descriptionsOfExpenses, reportId);
+        if (!data.succeeded) {
+            let action = stopSubmit("updateReport", {_error: data.errors});
+            dispatch(action);
+        }
+    }
 }
 
-export const requestReportByIdThunkCreator = (reportId: number) => (dispatch: any) => {
-    reportsApi.getReportById(reportId)
-        .then((res: any) => {
-            dispatch(setReportData({id: res.id, amountSpent: res.amountSpent,
-                descriptionsOfExpenses: res.descriptionsOfExpenses, timeOfCreate: res.timeOfCreate}))
-        })
+export const requestReportByIdThunkCreator = (reportId: number): ThunkType => {
+    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+        let data = await reportsApi.getReportById(reportId);
+        dispatch(setReportData({
+            id: data.id, amountSpent: data.amountSpent,
+            descriptionsOfExpenses: data.descriptionsOfExpenses, timeOfCreate: data.timeOfCreate
+        }))
+    }
 }
+export const addReportThunkCreator = (amountSpent: number, descriptionsOfExpenses: string): ThunkType => {
+    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+        let data = await reportsApi.addReport(amountSpent, descriptionsOfExpenses);
+        if (!data.succeeded) {
+            let action = stopSubmit("addReport", {_error: data.errors});
+            dispatch(action);
+        }
 
-export const addReportThunkCreator = (amountSpent: number, descriptionsOfExpenses: string) => (dispatch: any) => {
-    reportsApi.addReport(amountSpent, descriptionsOfExpenses)
-        .then( (res: any) => {
-            if(!res.succeeded) {
-                let action = stopSubmit("addReport", {_error: res.errors});
-                dispatch(action);
-            }
-        })
+    }
 }
 
 export default reportReducer;
