@@ -45,9 +45,7 @@ type PathParamsType = {
     dailyReportId: string
 }
 
-type OwnPropsType = RouteComponentProps<PathParamsType> & {
-
-}
+type OwnPropsType = RouteComponentProps<PathParamsType> & {}
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType;
 
