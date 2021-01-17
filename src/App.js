@@ -6,13 +6,13 @@ import DailyReportContainer from "./components/DailyReports/DailyReportContainer
 import {Route} from "react-router-dom";
 import UpdateReportContainer from "./components/Reports/UpdateReport/UpdateReportContainer";
 import LoginContainer from "./components/Users/Login/LoginContainer";
-import AddReportContainer from "./components/Reports/AddReport/AddReportContainer";
 import ProfileContainer from "./components/Users/Profile/ProfileContainer";
 import {useEffect} from "react";
 import {connect} from "react-redux";
 import Preloader from "./components/common/Preloader/Preloader";
 import {initializeThunkCreator} from "./redux/app-reducer";
 import RegistrationContainer from "./components/Users/Registration/RegistrationContainer";
+import AddReport from "./components/Reports/AddReport/AddReport";
 
 const App = (props) => {
     useEffect(() => {
@@ -31,7 +31,7 @@ const App = (props) => {
                 <Route path="/reports/:dailyReportId" render={() => (<ReportContainer></ReportContainer>)}></Route>
                 <Route path="/auth" render={() => (<LoginContainer></LoginContainer>)}></Route>
                 <Route path="/updateReport/:reportId" render={() => (<UpdateReportContainer></UpdateReportContainer>)}></Route>
-                <Route path="/addReport" render={() => (<AddReportContainer></AddReportContainer>)}></Route>
+                <Route path="/addReport" render={() => (<AddReport></AddReport>)}></Route>
                 <Route path="/profile" render={() => (<ProfileContainer></ProfileContainer>)}></Route>
                 <Route path="/reg" render={() => (<RegistrationContainer></RegistrationContainer>)}></Route>
             </div>
