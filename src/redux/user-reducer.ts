@@ -25,6 +25,7 @@ const LOGOUT = "LOGOUT";
 const userReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case SET_USER_DATA:
+            debugger
             return {
                 ...state,
                 userId: action.userId,
@@ -75,11 +76,11 @@ type GetStateType = () => AppStoreType;
 
 export const authThunkCreator = (userEmail: string, userPassword: string, isUserParsistent: boolean): ThunkType => {
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
-        let data = await accountApi.auth(userEmail, userPassword, isUserParsistent);
-        if (data.succeeded) {
+        let response = await accountApi.auth(userEmail, userPassword, isUserParsistent);
+        if (response.succeeded) {
             dispatch(auth())
         } else {
-            let action = stopSubmit("login", {_error: data.errors});
+            let action = stopSubmit("login", {_error: response.errors});
             dispatch(action);
         }
     }
@@ -87,9 +88,9 @@ export const authThunkCreator = (userEmail: string, userPassword: string, isUser
 
 export const authMeThunkCreator = (): ThunkType => {
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
-        let data = await accountApi.authMe();
-        if (data.isAuthenticated) {
-            dispatch(setUserData(data.user.id, data.user.userName));
+        let response = await accountApi.authMe();
+        if (response.data.isAuthenticated) {
+            dispatch(setUserData(response.data.user.id, response.data.user.userName));
         }
     }
 }
@@ -103,11 +104,11 @@ export const logoutThunkCreator = (): ThunkType => {
 
 export const registrationThunkCreator = (name: string, email: string, password: string): ThunkType  => {
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
-        let data = await accountApi.registration(name, email, password)
-        if (data.succeeded) {
+        let response = await accountApi.registration(name, email, password)
+        if (response.succeeded) {
             await authMeThunkCreator()
         } else {
-            let action = stopSubmit("registration", {_error: data.errors});
+            let action = stopSubmit("registration", {_error: response.errors});
             dispatch(action);
         }
 

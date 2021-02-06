@@ -36,13 +36,11 @@ type ActionsTypes = InitializedSuccessType;
 type ThunkType = ThunkAction<Promise<void>, AppStoreType, unknown, ActionsTypes>;
 type GetStateType = () => AppStoreType;
 
-export const initializeThunkCreator = ():ThunkType => {
+export const initializeThunkCreator = (): ThunkType => {
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
-        let promise = await authMeThunkCreator()
-        Promise.all([promise])
-            .then(() => {
-                dispatch(initializedSuccess())
-            })
+        await authMeThunkCreator()
+        debugger
+        dispatch(initializedSuccess())
     }
 }
 

@@ -3,23 +3,16 @@ import {stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStoreType} from "./redux-store";
 import {Dispatch} from "redux";
+import {ReportType} from "../types/types";
 
 export type InitialStateType = {
     pageSize: number
     pageNumber: number
     totalReportCount: number | null
     currentPage: number
-    reports: Array<ReportType> | null,
-    report: ReportType | null,
+    reports: Array<ReportType>,
+    report: ReportType,
     isFetching: boolean
-}
-
-export type ReportType = {
-    id: number | null,
-    amountSpent: number | null,
-    descriptionsOfExpenses: string | null
-    timeOfCreate: string | null
-
 }
 
 let initialState : InitialStateType = {
@@ -27,8 +20,8 @@ let initialState : InitialStateType = {
     pageNumber: 1,
     totalReportCount: 0,
     currentPage: 1,
-    reports: null,
-    report: null,
+    reports: [] as Array<ReportType>,
+    report: {} as ReportType,
     isFetching: false
 }
 
@@ -77,8 +70,8 @@ export const updateCurrentPage = (newCurrentPage: number): UpdateCurrentPageType
 type SetReportsDataType = {
     type: typeof SET_REPORTS_DATA, reports: Array<ReportType>, totalReportCount: number
 }
-export const setReportsData = (data: any): SetReportsDataType => ({
-    type: SET_REPORTS_DATA, reports: data.reports, totalReportCount: data.totalReportCount
+export const setReportsData = (reports: Array<ReportType>, totalReportCount: number): SetReportsDataType => ({
+    type: SET_REPORTS_DATA, reports: reports, totalReportCount: totalReportCount
 })
 
 type RemoveReportType = {
@@ -118,16 +111,17 @@ export const requestReportsThunkCreator = (currentPage: number, pageSize: number
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
         dispatch(toggleIsFetching(true));
         let skip = (currentPage - 1) * pageSize;
-        let data = await reportsApi.getReports(skip, pageSize, dailyReportId);
+        let response = await reportsApi.getReports(skip, pageSize, dailyReportId);
+        debugger;
         dispatch(toggleIsFetching(false));
-        dispatch(setReportsData(data))
+        dispatch(setReportsData(response.reports, response.totalReportCount))
     }
 }
 
 export const removeReportThunkCreator = (reportId: number): ThunkType => {
         return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
-            let data = await reportsApi.removeReport(reportId);
-            if (data.succeeded) {
+            let response = await reportsApi.removeReport(reportId);
+            if (response.succeeded) {
                 dispatch(removeReport(reportId))
             }
     }
@@ -135,9 +129,9 @@ export const removeReportThunkCreator = (reportId: number): ThunkType => {
 
 export const updateReportThunkCreator = (amountSpent: number, descriptionsOfExpenses: string, reportId: number): ThunkType => {
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
-        let data = await reportsApi.updateReport(amountSpent, descriptionsOfExpenses, reportId);
-        if (!data.succeeded) {
-            let action = stopSubmit("updateReport", {_error: data.errors});
+        let response = await reportsApi.updateReport(amountSpent, descriptionsOfExpenses, reportId);
+        if (!response.succeeded) {
+            let action = stopSubmit("updateReport", {_error: response.errors});
             dispatch(action);
         }
     }
@@ -145,21 +139,21 @@ export const updateReportThunkCreator = (amountSpent: number, descriptionsOfExpe
 
 export const requestReportByIdThunkCreator = (reportId: number): ThunkType => {
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
-        let data = await reportsApi.getReportById(reportId);
+        let response = await reportsApi.getReportById(reportId);
         dispatch(setReportData({
-            id: data.id, amountSpent: data.amountSpent,
-            descriptionsOfExpenses: data.descriptionsOfExpenses, timeOfCreate: data.timeOfCreate
+            id: response.data.id, amountSpent: response.data.amountSpent,
+            descriptionsOfExpenses: response.data.descriptionsOfExpenses, timeOfCreate: response.data.timeOfCreate
         }))
     }
 }
+
 export const addReportThunkCreator = (amountSpent: number, descriptionsOfExpenses: string): ThunkType => {
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
-        let data = await reportsApi.addReport(amountSpent, descriptionsOfExpenses);
-        if (!data.succeeded) {
-            let action = stopSubmit("addReport", {_error: data.errors});
+        let response = await reportsApi.addReport(amountSpent, descriptionsOfExpenses);
+        if (!response.succeeded) {
+            let action = stopSubmit("addReport", {_error: response.errors});
             dispatch(action);
         }
-
     }
 }
 

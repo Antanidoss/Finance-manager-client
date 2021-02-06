@@ -1,6 +1,5 @@
 import {createSelector} from "reselect";
 import {AppStoreType} from "./redux-store";
-import {DailyReportType} from "./dailyReport-reducer";
 
 export const getPageSize = (state: AppStoreType) => {
     return state.dailyReportPage.pageSize

@@ -30,7 +30,7 @@ type MapStateToPropsType = {
 
 type PropsType = MapDispatchToPropsType & MapStateToPropsType;
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStoreType>(mapStateToProps, {logout: logoutThunkCreator}),
     withAuthRedirect
 )(ProfileContainer)

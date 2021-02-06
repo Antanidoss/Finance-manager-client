@@ -1,7 +1,6 @@
 import React, {useEffect} from "react"
 import {connect} from "react-redux";
 import {
-    DailyReportType,
     requestDailyReportsThunkCreator,
     toggleIsFetching,
     updateCurrentPage
@@ -19,8 +18,9 @@ import {
 } from "../../redux/dailyReports-selectors";
 import {getIsAuthenticated} from "../../redux/users-selectors";
 import {AppStoreType} from "../../redux/redux-store";
+import { DailyReportType } from "../../types/types";
 
-const DailyReportContainer = (props: PropsType) => {
+const DailyReportContainer: React.FC<PropsType> = (props) => {
     useEffect(() => {
         props.getDailyReports(props.currentPage, props.pageSize);
     }, [])
@@ -51,7 +51,7 @@ type MapStateToPropsType = {
     pageNumber: number,
     totalDailyReportCount: number,
     currentPage: number,
-    dailyReports: Array<DailyReportType> | null,
+    dailyReports: Array<DailyReportType>,
     isAuthenticated: boolean,
     isFetching: boolean,
     totalPageCount: number
@@ -65,7 +65,7 @@ type MapDispatchToPropsType = {
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStoreType>
     (mapStateToProps, {toggleIsFetching, updateCurrentPage, getDailyReports: requestDailyReportsThunkCreator}),
     withAuthRedirect,

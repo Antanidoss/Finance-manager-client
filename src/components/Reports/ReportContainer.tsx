@@ -5,7 +5,7 @@ import {
     requestReportsThunkCreator,
     removeReportThunkCreator, toggleIsFetching,
     updateCurrentPage,
-    updateReportThunkCreator, ReportType
+    updateReportThunkCreator
 } from "../../redux/report-reducer";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
@@ -21,13 +21,14 @@ import {
 } from "../../redux/reports-selectors";
 import {getIsAuthenticated} from "../../redux/users-selectors";
 import {AppStoreType} from "../../redux/redux-store";
+import { ReportType } from "../../types/types";
 
 type MapStateToPropsType = {
     pageSize: number,
     pageNumber: number,
     totalReportCount: number,
     currentPage: number,
-    reports: Array<ReportType> | null,
+    reports: Array<ReportType>,
     isAuthenticated: boolean,
     isFetching: boolean,
     totalPageCount: number
@@ -49,7 +50,7 @@ type OwnPropsType = RouteComponentProps<PathParamsType> & {}
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType;
 
-const ReportContainer = (props: PropsType) => {
+const ReportContainer: React.FC<PropsType> = (props) => {
     useEffect(() => {
         props.requestReports(props.currentPage, props.pageSize, Number(props.match.params.dailyReportId))
     }, [])
@@ -75,7 +76,7 @@ let mapStateToProps = (state: AppStoreType): MapStateToPropsType => ({
     totalPageCount: getTotalPageCount(state)
 })
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStoreType>(mapStateToProps,
     {updateCurrentPage, requestReports: requestReportsThunkCreator, removeReport: removeReportThunkCreator,
         updateReport: updateReportThunkCreator, toggleIsFetching: toggleIsFetching}),

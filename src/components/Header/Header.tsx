@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import classes from "./Header.module.css"
 import {NavLink} from "react-router-dom";
+import {PropsType} from "./HeaderContainer";
 
-const Header = (props) => {
+const Header = (props: PropsType) => {
     return (
         <div className={classes.header}>
             <div className={classes.siteName}>Finance manager</div>
@@ -14,7 +15,7 @@ const Header = (props) => {
                 }
             </div>
         </div>
-        )
+    )
 }
 
-export default  Header;
+export default Header;

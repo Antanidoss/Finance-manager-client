@@ -3,8 +3,10 @@ import {registrationThunkCreator} from "../../../redux/user-reducer";
 import {connect} from "react-redux";
 import Registration from "./Registration";
 import {AppStoreType} from "../../../redux/redux-store";
+import {compose} from "redux";
+import {getIsAuthenticated} from "../../../redux/users-selectors";
 
-const RegistrationContainer = (props: PropsType) => {
+const RegistrationContainer: React.FC<PropsType> = (props) => {
     return <Registration {...props}></Registration>
 }
 
@@ -12,7 +14,17 @@ type MapDispatchToPropsType = {
     registration: typeof registrationThunkCreator
 }
 
-type PropsType = MapDispatchToPropsType;
+type MapStateToPropsType = {
+    isAuthenticated: boolean
+}
 
-export default connect<null, MapDispatchToPropsType, null, AppStoreType>
-(null, {registration: registrationThunkCreator})(RegistrationContainer);
+const mapStateToProps = (store: AppStoreType): MapStateToPropsType => ({
+    isAuthenticated: getIsAuthenticated(store)
+})
+
+export type PropsType = MapDispatchToPropsType & MapStateToPropsType;
+
+export default compose<React.ComponentType>(
+    connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStoreType>
+    (mapStateToProps, {registration: registrationThunkCreator}))
+    (RegistrationContainer);

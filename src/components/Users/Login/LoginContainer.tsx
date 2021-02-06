@@ -6,8 +6,9 @@ import {
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {AppStoreType} from "../../../redux/redux-store";
+import {getIsAuthenticated} from "../../../redux/users-selectors";
 
-const LoginContainer = (props: PropsType) => {
+const LoginContainer: React.FC<PropsType> = (props) => {
     return <Login {...props}></Login>
 }
 
@@ -15,9 +16,17 @@ type MapDispatchToPropsType = {
     auth: typeof authThunkCreator
 }
 
-type PropsType = MapDispatchToPropsType;
+type MapStateToPropsType = {
+    isAuthenticated: boolean
+}
 
-export default compose(
-    connect<null, MapDispatchToPropsType, null, AppStoreType>(null, {auth: authThunkCreator})
-)(LoginContainer)
+const mapStateToProps = (store: AppStoreType): MapStateToPropsType => ({
+    isAuthenticated: getIsAuthenticated(store)
+})
+export type PropsType = MapDispatchToPropsType & MapStateToPropsType;
+
+export default compose<React.ComponentType>(
+    connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStoreType>
+    (mapStateToProps, {auth: authThunkCreator}))
+    (LoginContainer)
 

@@ -1,5 +1,6 @@
 import instanceAxios from "./instanceAxios";
 import {ReportResultType} from "./reportsApi";
+import {ResponseType} from "./instanceAxios";
 
 type DailyReportResult = {
     id: number,
@@ -14,7 +15,7 @@ type GetDailyReportsResultType = {
 
 export const dailyReportsApi = {
     getDailyReports(skip: number, take: number) {
-        return instanceAxios.get<GetDailyReportsResultType>(`/DailyReport/get/${skip}&${take}`)
+        return instanceAxios.get<ResponseType<GetDailyReportsResultType>>(`/DailyReport/get/${skip}&${take}`)
             .then(res => {
                 return res.data
             })

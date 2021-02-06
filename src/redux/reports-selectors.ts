@@ -1,6 +1,5 @@
 import {createSelector} from "reselect";
 import {AppStoreType} from "./redux-store";
-import {ReportType} from "./report-reducer";
 
 export const getTotalReportCount = (state: AppStoreType) => {
     return Number(state.reportPage.totalReportCount);

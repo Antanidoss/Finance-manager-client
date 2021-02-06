@@ -1,25 +1,17 @@
 import React from "react"
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import classes from "./AddReport.module.css"
-import {maxLengthCreator, minLengthCreator, required} from "../../../unitls/validators";
+import {maxLengthCreator, minLengthCreator, range, required} from "../../../unitls/validators";
 import {Element} from "../../common/FormsControls/FormsControls";
-import {addReportThunkCreator} from "../../../redux/report-reducer";
-
-type MapStateTpPropsType = {
-    amountSpent: number,
-    descriptionsOfExpenses: string
-}
-
-type MapDispatchToPropsType = {
-    addReport: typeof addReportThunkCreator
-}
+import {PropsType} from "./AddReportContainer";
 
 type AddReportFormValuesType = {
     amountSpent: number,
     descriptionsOfExpenses: string
 }
 
-const AddReport: React.FC<MapStateTpPropsType & MapDispatchToPropsType> = (props) => {
+const AddReport: React.FC<PropsType> = (props) => {
+    debugger
     const onSubmit = (formData: AddReportFormValuesType) => {
         props.addReport(formData.amountSpent, formData.descriptionsOfExpenses)
     }
@@ -28,14 +20,14 @@ const AddReport: React.FC<MapStateTpPropsType & MapDispatchToPropsType> = (props
             <div className={classes.addReportText}>
                 <h2>Создать отчёт</h2>
             </div>
-            <AddReportReduxForm onSubmit={onSubmit}></AddReportReduxForm>
+            <AddReportReduxForm {...props} onSubmit={onSubmit}></AddReportReduxForm>
         </div>
     )
 }
 
 const maxLength300 = maxLengthCreator(300);
 const minLength3 = minLengthCreator(3);
-
+const rangeFrom0ToMilion = range(0, 1000000);
 
 const AddReportForm: React.FC<InjectedFormProps<AddReportFormValuesType>> =
     ({handleSubmit, error}) => {
@@ -44,7 +36,7 @@ const AddReportForm: React.FC<InjectedFormProps<AddReportFormValuesType>> =
     return (
         <form onSubmit={handleSubmit} className={classes.addReportForm}>
             <div className={classes.amountSpent}>
-                <Field placeholder="Сумма траты" component={Input} name="amountSpent" validate={[required]}
+                <Field placeholder="Сумма траты" component={Input} name="amountSpent" validate={[required, rangeFrom0ToMilion]}
                        type="number"></Field>
             </div>
             <div className={classes.descriptionsOfExpenses}>

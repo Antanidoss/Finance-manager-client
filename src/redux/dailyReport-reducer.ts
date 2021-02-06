@@ -2,18 +2,14 @@ import {dailyReportsApi} from "../api/dailyReportsApi";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {AppStoreType} from "./redux-store";
-
-export type DailyReportType = {
-    id: number | null,
-    timeOfCreate: string | null,
-}
+import {DailyReportType} from "../types/types";
 
 export type InitialStateType = {
     pageSize: number,
     pageNumber: number,
     totalDailyReportCount: number,
     currentPage: number,
-    dailyReports: Array<DailyReportType> | null,
+    dailyReports: Array<DailyReportType>,
     isFetching: boolean
 }
 
@@ -22,7 +18,7 @@ const initialState: InitialStateType = {
     pageNumber: 1,
     totalDailyReportCount: 0,
     currentPage: 1,
-    dailyReports: null,
+    dailyReports: [] as Array<DailyReportType>,
     isFetching: false
 };
 
@@ -40,7 +36,7 @@ const dailyReportReducer = (state = initialState, action: ActionsTypes): Initial
         case SET_DAILY_REPORTS_DATA:
             return {
                 ...state,
-                dailyReports: action.dailyReports,
+                dailyReports: action.dailyReports ?? [],
                 totalDailyReportCount: action.totalDailyReportCount
             }
         case TOGGLE_IS_FETCHING:
@@ -84,9 +80,9 @@ export const requestDailyReportsThunkCreator = (currentPage: number, pageSize: n
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
         dispatch(toggleIsFetching(true));
         let skip = (currentPage - 1) * pageSize;
-        let data = await dailyReportsApi.getDailyReports(skip, pageSize)
+        let response = await dailyReportsApi.getDailyReports(skip, pageSize)
 
-        dispatch(setDailyReportsData(data.dailyReports, data.totalDailyReportCount))
+        dispatch(setDailyReportsData(response.data.dailyReports, response.data.totalDailyReportCount))
         dispatch(toggleIsFetching(false))
     }
 }

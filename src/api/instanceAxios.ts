@@ -10,4 +10,9 @@ export type ResultType = {
     errors: Array<string>
 }
 
+export type ResponseType<D = {}> = {
+    data: D,
+    result: ResultType | null
+}
+
 export default instanceAxios;
