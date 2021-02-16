@@ -11,7 +11,6 @@ type AddReportFormValuesType = {
 }
 
 const AddReport: React.FC<PropsType> = (props) => {
-    debugger
     const onSubmit = (formData: AddReportFormValuesType) => {
         props.addReport(formData.amountSpent, formData.descriptionsOfExpenses)
     }
@@ -20,7 +19,7 @@ const AddReport: React.FC<PropsType> = (props) => {
             <div className={classes.addReportText}>
                 <h2>Создать отчёт</h2>
             </div>
-            <AddReportReduxForm {...props} onSubmit={onSubmit}></AddReportReduxForm>
+            <AddReportReduxForm onSubmit={onSubmit}></AddReportReduxForm>
         </div>
     )
 }
@@ -29,8 +28,7 @@ const maxLength300 = maxLengthCreator(300);
 const minLength3 = minLengthCreator(3);
 const rangeFrom0ToMilion = range(0, 1000000);
 
-const AddReportForm: React.FC<InjectedFormProps<AddReportFormValuesType>> =
-    ({handleSubmit, error}) => {
+const AddReportForm: React.FC<InjectedFormProps<AddReportFormValuesType>> = ({handleSubmit, error}) => {
     const Textarea = Element("textarea");
     const Input = Element("input")
     return (

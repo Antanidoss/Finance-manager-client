@@ -3,7 +3,7 @@ import classes from "./Header.module.css"
 import {NavLink} from "react-router-dom";
 import {PropsType} from "./HeaderContainer";
 
-const Header = (props: PropsType) => {
+const Header: React.FC<PropsType> = (props) => {
     return (
         <div className={classes.header}>
             <div className={classes.siteName}>Finance manager</div>

@@ -81,7 +81,6 @@ export const requestDailyReportsThunkCreator = (currentPage: number, pageSize: n
         dispatch(toggleIsFetching(true));
         let skip = (currentPage - 1) * pageSize;
         let response = await dailyReportsApi.getDailyReports(skip, pageSize)
-
         dispatch(setDailyReportsData(response.data.dailyReports, response.data.totalDailyReportCount))
         dispatch(toggleIsFetching(false))
     }

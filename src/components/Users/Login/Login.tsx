@@ -17,7 +17,7 @@ const Login: React.FC<PropsType> = (props) => {
         props.auth(formData.email, formData.password, formData.isParsistent);
     }
     if (props.isAuthenticated){
-        return <Redirect to="/dailyReports"></Redirect>
+        return <Redirect to={`/${props.prevPath && "dailyReports"}`}></Redirect> //TODO:
     }
     return (
         <div>

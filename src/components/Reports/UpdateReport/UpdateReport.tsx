@@ -14,8 +14,8 @@ type UpdateReportFormValuesType = {
 
 const UpdateReport: React.FC<PropsType> = (props) => {
     const onSubmit = (formData: UpdateReportFormValuesType) => {
-        props.updateReport(formData.amountSpent && props.report.amountSpent,
-            formData.descriptionsOfExpenses && props.report.descriptionsOfExpenses, props.report.id);
+        debugger
+        props.updateReport(formData.amountSpent, formData.descriptionsOfExpenses, props.report.id);
     }
     return (
         <div>
@@ -35,35 +35,33 @@ type FormPropsType = InjectedFormProps<UpdateReportFormValuesType, ReportType> &
 let Textarea = Element("textarea");
 let Input = Element("input");
 
-class UpdateReportForm extends  React.Component<FormPropsType> {
-    render()
-    {
-        return (
-            <form onSubmit={this.props.handleSubmit} className={classes.updateReportForm}>
-                <div className={classes.amountSpent}>
-                    <label>Сумма траты</label>
-                    <Field validate={[required, rangeFrom0ToMilion]} placeholder={this.props.amountSpent} type="number" name="amountSpent"
-                           component={Input}></Field>
+const UpdateReportForm: React.FC<FormPropsType> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit} className={classes.updateReportForm}>
+            <div className={classes.amountSpent}>
+                <label>Сумма траты</label>
+                <Field validate={[required, rangeFrom0ToMilion]} placeholder={props.amountSpent} type="number"
+                       name="amountSpent"
+                       component={Input}></Field>
+            </div>
+            <div className={classes.descriptionsOfExpenses}>
+                <label>Описания траты</label>
+                <Field validate={[required, maxLength300, minLength3]}
+                       placeholder={props.descriptionsOfExpenses} name="descriptionsOfExpenses"
+                       component={Textarea}></Field>
+            </div>
+            {
+                props.error && <div className={classes.formSummaryError}>
+                    {props.error}
                 </div>
-                <div className={classes.descriptionsOfExpenses}>
-                    <label>Описания траты</label>
-                    <Field validate={[required, maxLength300, minLength3]}
-                           placeholder={this.props.descriptionsOfExpenses} name="descriptionsOfExpenses"
-                           component={Textarea}></Field>
-                </div>
-                {
-                    this.props.error && <div className={classes.formSummaryError}>
-                        {this.props.error}
-                    </div>
-                }
-                <div className={classes.updateReportButton}>
-                    <button type="reset">
-                        Обновить
-                    </button>
-                </div>
-            </form>
-        )
-    }
+            }
+            <div className={classes.updateReportButton}>
+                <button>
+                    Обновить
+                </button>
+            </div>
+        </form>
+    )
 }
 
 const UpdateReportReduxForm = reduxForm<UpdateReportFormValuesType, ReportType>({

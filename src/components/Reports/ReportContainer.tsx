@@ -22,6 +22,9 @@ import {
 import {getIsAuthenticated} from "../../redux/users-selectors";
 import {AppStoreType} from "../../redux/redux-store";
 import { ReportType } from "../../types/types";
+import { toggleIsPopupsActive } from "../../redux/app-reducer";
+import Popups from "../common/Popups/Popups";
+import {getIsPopupsActive, getPopupsMessages} from "../../redux/app-selectors";
 
 type MapStateToPropsType = {
     pageSize: number,
@@ -31,7 +34,9 @@ type MapStateToPropsType = {
     reports: Array<ReportType>,
     isAuthenticated: boolean,
     isFetching: boolean,
-    totalPageCount: number
+    totalPageCount: number,
+    popupsMessages: string,
+    isActivePopups: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -39,7 +44,8 @@ type MapDispatchToPropsType = {
     requestReports: typeof requestReportsThunkCreator,
     removeReport: typeof removeReportThunkCreator,
     updateReport: typeof updateReportThunkCreator,
-    toggleIsFetching: typeof toggleIsFetching
+    toggleIsFetching: typeof toggleIsFetching,
+    toggleIsPopupsActive: typeof toggleIsPopupsActive
 }
 
 type PathParamsType = {
@@ -56,6 +62,11 @@ const ReportContainer: React.FC<PropsType> = (props) => {
     }, [])
     return <>
         {
+            props.isActivePopups
+                ? <Popups message={props.popupsMessages} toggleIsPopupsActive={props.toggleIsPopupsActive}></Popups>
+                : null
+        }
+        {
             props.isFetching
                 ? <Preloader></Preloader>
                 : null
@@ -65,7 +76,7 @@ const ReportContainer: React.FC<PropsType> = (props) => {
 
 }
 
-let mapStateToProps = (state: AppStoreType): MapStateToPropsType => ({
+const mapStateToProps = (state: AppStoreType): MapStateToPropsType => ({
     pageSize: getPageSize(state),
     pageNumber: getPageNumber(state),
     totalReportCount: getTotalReportCount(state),
@@ -73,13 +84,15 @@ let mapStateToProps = (state: AppStoreType): MapStateToPropsType => ({
     reports: getReports(state),
     isAuthenticated: getIsAuthenticated(state),
     isFetching: getIsFetching(state),
-    totalPageCount: getTotalPageCount(state)
+    totalPageCount: getTotalPageCount(state),
+    popupsMessages: getPopupsMessages(state),
+    isActivePopups: getIsPopupsActive(state)
 })
 
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStoreType>(mapStateToProps,
     {updateCurrentPage, requestReports: requestReportsThunkCreator, removeReport: removeReportThunkCreator,
-        updateReport: updateReportThunkCreator, toggleIsFetching: toggleIsFetching}),
+        updateReport: updateReportThunkCreator, toggleIsFetching: toggleIsFetching, toggleIsPopupsActive: toggleIsPopupsActive}),
     withRouter,
     withAuthRedirect
 )(ReportContainer)

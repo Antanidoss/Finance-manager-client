@@ -8,6 +8,12 @@ const Navbar = () => {
             <div className={classes.dailyReports}>
                 <NavLink to="/dailyReports">Ежедневные отчёты</NavLink>
             </div>
+            <div className={classes.addReport}>
+                <NavLink to="/addReport">Создать отчет</NavLink>
+            </div>
+            <div className={classes.statistics}>
+                <NavLink to="/statistics">Статистика</NavLink>
+            </div>
         </div>
     )
 }

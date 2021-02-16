@@ -78,7 +78,7 @@ export const authThunkCreator = (userEmail: string, userPassword: string, isUser
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
         let response = await accountApi.auth(userEmail, userPassword, isUserParsistent);
         if (response.succeeded) {
-            dispatch(auth())
+            dispatch(auth());
         } else {
             let action = stopSubmit("login", {_error: response.errors});
             dispatch(action);
@@ -89,6 +89,7 @@ export const authThunkCreator = (userEmail: string, userPassword: string, isUser
 export const authMeThunkCreator = (): ThunkType => {
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
         let response = await accountApi.authMe();
+        debugger
         if (response.data.isAuthenticated) {
             dispatch(setUserData(response.data.user.id, response.data.user.userName));
         }

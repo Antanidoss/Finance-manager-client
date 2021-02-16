@@ -1,5 +1,6 @@
 import instanceAxios, {ResultType} from "./instanceAxios";
 import {ResponseType} from "./instanceAxios";
+import {ReportType} from "../types/types";
 
 export type ReportResultType = {
     id: number,
@@ -16,14 +17,13 @@ type GetReportByIdReusltType = {
 }
 
 type GetReportsResultType = {
-    reports: any,
+    reports: Array<ReportType>,
     totalReportCount: number
 }
 
 
 export const reportsApi = {
     getReports(skip: number, take: number, dailyReportId: number) {
-        debugger
         return  instanceAxios.get<ResponseType<GetReportsResultType>>(`/Report/get/${skip}&${take}&${dailyReportId}`)
             .then(res => res.data.data)
     },
@@ -48,7 +48,6 @@ export const reportsApi = {
         return instanceAxios.post<ResultType>("/Report/add", {
             amountSpent: amountSpent,
             descriptionsOfExpenses: descriptionsOfExpenses
-        })
-            .then(res => res.data)
+        }).then(res => res.data)
     }
 }

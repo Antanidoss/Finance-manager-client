@@ -30,7 +30,7 @@ const DailyReportContainer: React.FC<PropsType> = (props) => {
                     ? <Preloader></Preloader>
                     : null
             }
-                <DailyReports {...props}></DailyReports>;
+                <DailyReports {...props}></DailyReports>
             </>
 
 }
@@ -68,5 +68,5 @@ type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStoreType>
     (mapStateToProps, {toggleIsFetching, updateCurrentPage, getDailyReports: requestDailyReportsThunkCreator}),
-    withAuthRedirect,
+    withAuthRedirect
 )(DailyReportContainer);

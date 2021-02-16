@@ -6,6 +6,11 @@
     margin-top: 50px;
     padding-bottom: 50px;
 }
+.reportItems{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 .pagination span{
     border: 2px solid #5c7cff;
     margin-left: 20px;

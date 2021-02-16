@@ -33,9 +33,11 @@ const Reports: React.FC<PropsType> = (props) => {
     return (
         <div className={classes.reports}>
             {
-                props.reports.length === 0 ?
-                    <h3>У вас нет отчетов за эту дату</h3> :
-                    reportElem
+                props.reports.length === 0
+                    ? <h3>У вас нет отчетов за эту дату</h3>
+                    : <div className={classes.reportItems}>
+                        {reportElem}
+                    </div>
             }
             <Paginator {...props}></Paginator>
         </div>

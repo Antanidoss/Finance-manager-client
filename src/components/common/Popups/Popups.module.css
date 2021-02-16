@@ -1,0 +1,29 @@
+.popups{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    margin: 0 0 0.5em 0;
+    transition: all 0.8s ease 0s;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.body{
+    min-height: 100%;
+    padding: 30px 10px;
+}
+.content{
+    background-color: #c0d9ff;
+    color: #000;
+    width: 500px;
+    height: 100px;
+    padding: 30px;
+    position: relative;
+    left: 200px;
+    border-radius: 10px;
+}
+.message{
+    font-size: 25px;
+    margin: 0 5em 0;
+}
+.close{
+    position: absolute;
+}

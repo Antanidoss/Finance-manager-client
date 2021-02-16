@@ -4,6 +4,7 @@ import {ThunkAction} from "redux-thunk";
 import {AppStoreType} from "./redux-store";
 import {Dispatch} from "redux";
 import {ReportType} from "../types/types";
+import { toggleIsPopupsActive, ToggleIsPopupsActiveType } from "./app-reducer";
 
 export type InitialStateType = {
     pageSize: number
@@ -12,7 +13,7 @@ export type InitialStateType = {
     currentPage: number
     reports: Array<ReportType>,
     report: ReportType,
-    isFetching: boolean
+    isFetching: boolean,
 }
 
 let initialState : InitialStateType = {
@@ -22,7 +23,7 @@ let initialState : InitialStateType = {
     currentPage: 1,
     reports: [] as Array<ReportType>,
     report: {} as ReportType,
-    isFetching: false
+    isFetching: false,
 }
 
 const SET_REPORTS_DATA = "SET_REPORTS_DATA";
@@ -103,7 +104,8 @@ export const toggleIsFetching = (isFetching : boolean): ToggleIsFetchingType => 
     type: TOGGLE_IS_FETCHING, isFetching: isFetching
 })
 
-type ActionsTypes = UpdateCurrentPageType | SetReportsDataType | RemoveReportType | UpdateReportType | SetReportDataType | ToggleIsFetchingType;
+type ActionsTypes = UpdateCurrentPageType | SetReportsDataType | RemoveReportType | UpdateReportType | SetReportDataType
+    | ToggleIsFetchingType | ToggleIsPopupsActiveType;
 type ThunkType = ThunkAction<Promise<void>, AppStoreType, unknown, ActionsTypes>;
 type GetStateType = () => AppStoreType;
 
@@ -112,7 +114,6 @@ export const requestReportsThunkCreator = (currentPage: number, pageSize: number
         dispatch(toggleIsFetching(true));
         let skip = (currentPage - 1) * pageSize;
         let response = await reportsApi.getReports(skip, pageSize, dailyReportId);
-        debugger;
         dispatch(toggleIsFetching(false));
         dispatch(setReportsData(response.reports, response.totalReportCount))
     }
@@ -122,7 +123,9 @@ export const removeReportThunkCreator = (reportId: number): ThunkType => {
         return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
             let response = await reportsApi.removeReport(reportId);
             if (response.succeeded) {
+                debugger
                 dispatch(removeReport(reportId))
+                dispatch(toggleIsPopupsActive(true, "Отчет удалён"))
             }
     }
 }
@@ -133,6 +136,9 @@ export const updateReportThunkCreator = (amountSpent: number, descriptionsOfExpe
         if (!response.succeeded) {
             let action = stopSubmit("updateReport", {_error: response.errors});
             dispatch(action);
+        }
+        else{
+            dispatch(toggleIsPopupsActive(true, "Отчет обновлён"))
         }
     }
 }
@@ -153,6 +159,9 @@ export const addReportThunkCreator = (amountSpent: number, descriptionsOfExpense
         if (!response.succeeded) {
             let action = stopSubmit("addReport", {_error: response.errors});
             dispatch(action);
+        }
+        else{
+            dispatch(toggleIsPopupsActive(true, "Отчет создан"))
         }
     }
 }
