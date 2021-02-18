@@ -23,7 +23,7 @@ import { DailyReportType } from "../../types/types";
 const DailyReportContainer: React.FC<PropsType> = (props) => {
     useEffect(() => {
         props.getDailyReports(props.currentPage, props.pageSize);
-    }, [])
+    }, [props.currentPage])
         return <>
             {
                 props.isFetching
@@ -34,17 +34,6 @@ const DailyReportContainer: React.FC<PropsType> = (props) => {
             </>
 
 }
-
-let mapStateToProps = (state: AppStoreType) => ({
-    pageSize: getPageSize(state),
-    pageNumber: getPageNumber(state),
-    totalDailyReportCount: getTotalDailyReportCount(state),
-    currentPage: getCurrentPage(state),
-    dailyReports: getDailyReports(state),
-    isAuthenticated: getIsAuthenticated(state),
-    isFetching: getIsFetching(state),
-    totalPageCount: getTotalPageCount(state)
-})
 
 type MapStateToPropsType = {
     pageSize: number,
@@ -63,7 +52,18 @@ type MapDispatchToPropsType = {
     getDailyReports: typeof requestDailyReportsThunkCreator
 }
 
-type PropsType = MapStateToPropsType & MapDispatchToPropsType;
+let mapStateToProps = (state: AppStoreType): MapStateToPropsType => ({
+    pageSize: getPageSize(state),
+    pageNumber: getPageNumber(state),
+    totalDailyReportCount: getTotalDailyReportCount(state),
+    currentPage: getCurrentPage(state),
+    dailyReports: getDailyReports(state),
+    isAuthenticated: getIsAuthenticated(state),
+    isFetching: getIsFetching(state),
+    totalPageCount: getTotalPageCount(state)
+})
+
+export type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStoreType>

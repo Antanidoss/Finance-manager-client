@@ -21,7 +21,7 @@ const Statistics: React.FC<PropsType> = (props) => {
                 props.monthlyStatistics != null
                     ? <div className={classes.statistics}>
                         <div className={classes.numberOfReportsPerMonth}>
-                            Количество отчётов за месяц: {props.monthlyStatistics.numberOfReportsPerMonth}
+                            Количество ежедневных отчётов за месяц: {props.monthlyStatistics.numberOfReportsPerMonth}
                         </div>
                         <div className={classes.amountSpentPerMonth}>
                             Общая сумма, потраченая за месяц: {props.monthlyStatistics.amountSpentPerMonth}

@@ -2,19 +2,7 @@ import React from "react"
 import DailyReport from "./DailyReport/DailyReport";
 import classes from "./DailyReports.module.css"
 import Paginator from "../common/Paginator/Paginator";
-import {DailyReportType} from "../../types/types";
-import {updateCurrentPage} from "../../redux/report-reducer";
-
-type PropsType = {
-    pageSize: number,
-    pageNumber: number,
-    totalDailyReportCount: number,
-    currentPage: number,
-    dailyReports: Array<DailyReportType>,
-    isAuthenticated: boolean,
-    isFetching: boolean,
-    totalPageCount: number
-}
+import { PropsType } from "./DailyReportContainer";
 
 const DailyReports: React.FC<PropsType> = (props) => {
     let dailyReportElem = props.dailyReports.map(d => {
@@ -29,7 +17,7 @@ const DailyReports: React.FC<PropsType> = (props) => {
                         {dailyReportElem}
                     </div>
             }
-            <Paginator {...props} updateCurrentPage={updateCurrentPage}></Paginator>
+            <Paginator {...props}></Paginator>
         </div>
     )
 

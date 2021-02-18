@@ -5,7 +5,8 @@ import {ResponseType} from "./instanceAxios";
 type DailyReportResult = {
     id: number,
     reports: Array<ReportResultType>
-    timeOfCreate: string
+    timeOfCreate: string,
+    reportsCount: number
 }
 
 type GetDailyReportsResultType = {

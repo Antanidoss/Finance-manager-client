@@ -29,6 +29,7 @@ const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const dailyReportReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case UPDATE_CURRENT_PAGE:
+            debugger
             return {
                 ...state,
                 currentPage: action.newCurrentPage

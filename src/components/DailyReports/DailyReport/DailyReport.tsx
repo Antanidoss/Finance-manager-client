@@ -14,6 +14,9 @@ const DailyReport: React.FC<PropsType> = (props) => {
                 Отчет за <NavLink
                 to={`/reports/${props.dailyReport.id}`}>{props.dailyReport.timeOfCreate}</NavLink>
             </div>
+            <div className={classes.reportsCount}>
+                Количество отчётов за этот день: {props.dailyReport.reportsCount}
+            </div>
         </div>
     )
 }
