@@ -25,7 +25,6 @@ const LOGOUT = "LOGOUT";
 const userReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case SET_USER_DATA:
-            debugger
             return {
                 ...state,
                 userId: action.userId,
@@ -89,7 +88,6 @@ export const authThunkCreator = (userEmail: string, userPassword: string, isUser
 export const authMeThunkCreator = (): ThunkType => {
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
         let response = await accountApi.authMe();
-        debugger
         if (response.data.isAuthenticated) {
             dispatch(setUserData(response.data.user.id, response.data.user.userName));
         }

@@ -50,7 +50,6 @@ export const requestMonthlyStatistics = (year: number, monthNumber: number): Thu
         if(!response.result?.succeeded){
 
         }
-        debugger
         dispatch(setMonthlyStatisticsData({
                 year: response.data.year,
                 monthNumber: response.data.monthNumber,

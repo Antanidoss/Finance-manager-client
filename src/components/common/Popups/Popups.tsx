@@ -1,11 +1,6 @@
 import React from "react";
-import { toggleIsPopupsActive } from "../../../redux/app-reducer";
 import classes from "./Popups.module.css"
-
-type PropsType = {
-    message: string,
-    toggleIsPopupsActive: typeof toggleIsPopupsActive
-}
+import {PropsType} from "./PopupsContainer"
 
 const Popups: React.FC<PropsType> = (props) => {
     return (

@@ -16,9 +16,9 @@ const Paginator: React.FC<PropsType> = (props) => {
         <div className={classes.pagination}>
             {
                 pages.map(p => {
-                    return <span className={(props.currentPage === p && classes.selectPage).toString()}
+                    return <span key={p} className={(props.currentPage === p && classes.selectPage).toString()}
                                  onClick={() => {props.updateCurrentPage(p)}}>
-                        <text className={classes.pageNumber}>{p}</text>
+                        <label key={p} className={classes.pageNumber}>{p}</label>
                     </span>
                 })
             }

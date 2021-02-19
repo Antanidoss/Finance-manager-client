@@ -10,7 +10,3 @@ export const getPopupsMessages = (state: AppStoreType) => {
 export const getIsPopupsActive = (state: AppStoreType) => {
     return state.app.isPopupsActive;
 }
-
-export const getPrevPath = (state: AppStoreType) => {
-    return state.app.prevPath;
-}

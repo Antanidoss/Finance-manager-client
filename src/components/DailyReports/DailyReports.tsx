@@ -2,7 +2,7 @@ import React from "react"
 import DailyReport from "./DailyReport/DailyReport";
 import classes from "./DailyReports.module.css"
 import Paginator from "../common/Paginator/Paginator";
-import { PropsType } from "./DailyReportContainer";
+import { PropsType } from "./DailyReportsContainer";
 
 const DailyReports: React.FC<PropsType> = (props) => {
     let dailyReportElem = props.dailyReports.map(d => {

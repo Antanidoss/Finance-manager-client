@@ -11,9 +11,9 @@
 - reselect
 
 # **How it looks**
-![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_4.png?raw=true)
+![]()
 ![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_5.png?raw=true)
-![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_6.png?raw=true)
+![]()
 ![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_7.png?raw=true)
 
 # How to start a project

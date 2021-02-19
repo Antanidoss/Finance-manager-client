@@ -6,7 +6,7 @@ const Navbar = () => {
     return (
         <div className={classes.navbar}>
             <div className={classes.dailyReports}>
-                <NavLink to="/dailyReports">Ежедневные отчёты</NavLink>
+                <NavLink to="/">Ежедневные отчёты</NavLink>
             </div>
             <div className={classes.addReport}>
                 <NavLink to="/addReport">Создать отчет</NavLink>

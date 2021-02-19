@@ -11,13 +11,6 @@ const ProfileContainer = (props: PropsType) => {
     return <Profile {...props}></Profile>
 }
 
-let mapStateToProps = (state: AppStoreType) => ({
-    userId: getUserId(state),
-    userName: getUserName(state),
-    isAuthenticated: getIsAuthenticated(state)
-})
-
-
 type MapDispatchToPropsType = {
     logout: typeof logoutThunkCreator
 }
@@ -28,7 +21,13 @@ type MapStateToPropsType = {
     isAuthenticated: boolean
 }
 
-type PropsType = MapDispatchToPropsType & MapStateToPropsType;
+let mapStateToProps = (state: AppStoreType): MapStateToPropsType => ({
+    userId: getUserId(state),
+    userName: getUserName(state),
+    isAuthenticated: getIsAuthenticated(state)
+})
+
+export type PropsType = MapDispatchToPropsType & MapStateToPropsType;
 
 export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStoreType>(mapStateToProps, {logout: logoutThunkCreator}),

@@ -1,8 +1,8 @@
 import './App.css';
-import ReportContainer from "./components/Reports/ReportContainer";
+import ReportContainer from "./components/Reports/ReportsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Navbar from "./components/Navbar/Navbar";
-import DailyReportContainer from "./components/DailyReports/DailyReportContainer";
+import DailyReportContainer from "./components/DailyReports/DailyReportsContainer";
 import {Route} from "react-router-dom";
 import UpdateReportContainer from "./components/Reports/UpdateReport/UpdateReportContainer";
 import LoginContainer from "./components/Users/Login/LoginContainer";
@@ -18,6 +18,7 @@ import {getInitialized, getIsPopupsActive, getPopupsMessages} from "./redux/app-
 import React from 'react';
 import {compose} from "redux";
 import StatisticsContainer from "./components/Statistics/StatisticsContainer";
+import PopupsContainer from "./components/common/Popups/PopupsContainer";
 
 
 const App: React.FC<PropsType> = (props) => {
@@ -28,12 +29,13 @@ const App: React.FC<PropsType> = (props) => {
         return <Preloader></Preloader>
     }
     return (
-        <>{
+        <>
+            <PopupsContainer></PopupsContainer>
             <div className="wrapper">
                 <Navbar></Navbar>
                 <HeaderContainer></HeaderContainer>
                 <div className="content">
-                    <Route path="/dailyReports" render={() => (<DailyReportContainer></DailyReportContainer>)}></Route>
+                    <Route exact path="/" render={() => (<DailyReportContainer></DailyReportContainer>)}></Route>
                     <Route path="/reports/:dailyReportId" render={() => (<ReportContainer></ReportContainer>)}></Route>
                     <Route path="/auth" render={() => (<LoginContainer></LoginContainer>)}></Route>
                     <Route path="/updateReport/:reportId" render={() => (<UpdateReportContainer></UpdateReportContainer>)}></Route>
@@ -43,7 +45,7 @@ const App: React.FC<PropsType> = (props) => {
                     <Route path="/statistics" render={() => (<StatisticsContainer></StatisticsContainer>)}></Route>
                 </div>
             </div>
-        }</>
+        </>
     );
 
 }

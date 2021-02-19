@@ -22,7 +22,7 @@ const Report: React.FC<PropsType> = (props) => {
                 <label>Описания траты: {props.descriptionsOfExpenses}</label>
             </div>
             <div className={classes.amountSpent}>
-                <label>Сумма траты: {props.amountSpent}</label>
+                <label>Сумма траты: {props.amountSpent + "₽"}</label>
             </div>
             <div className={classes.remove}>
                 <button onClick={() => props.removeReport(props.id)}>Удалить</button>

@@ -7,14 +7,12 @@ type InitialStateType = {
     initialized: boolean
     isPopupsActive: boolean,
     popupsMessage: string,
-    prevPath: string
 }
 
 let initialState: InitialStateType = {
     initialized: false,
     isPopupsActive: false,
     popupsMessage: "",
-    prevPath: window.location.pathname
 }
 
 const INITIALIZED_SUCCESS  = "SET_INITIALIZED_SUCCESS"
@@ -23,13 +21,11 @@ const TOGGLE_IS_POPUPS_ACTIVE = "TOGGLE_IS_POPUPS_ACTIVE";
 const appReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case INITIALIZED_SUCCESS:
-            debugger
             return {
                 ...state,
                 initialized: true
             }
         case TOGGLE_IS_POPUPS_ACTIVE:
-            debugger
             return {
                 ...state,
                 isPopupsActive: action.isPopupsActive,

@@ -26,7 +26,7 @@ const Reports: React.FC<PropsType> = (props) => {
 
     })
     let reportElem = props.reports.map(r => {
-        return <Report amountSpent={r.amountSpent} descriptionsOfExpenses={r.descriptionsOfExpenses} id={r.id}
+        return <Report key={r.id} amountSpent={r.amountSpent} descriptionsOfExpenses={r.descriptionsOfExpenses} id={r.id}
                        timeOfCreate={r.timeOfCreate} removeReport={props.removeReport}
                        updateReport={props.updateReport}/>
     })

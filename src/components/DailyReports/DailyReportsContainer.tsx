@@ -20,7 +20,7 @@ import {getIsAuthenticated} from "../../redux/users-selectors";
 import {AppStoreType} from "../../redux/redux-store";
 import { DailyReportType } from "../../types/types";
 
-const DailyReportContainer: React.FC<PropsType> = (props) => {
+const DailyReportsContainer: React.FC<PropsType> = (props) => {
     useEffect(() => {
         props.getDailyReports(props.currentPage, props.pageSize);
     }, [props.currentPage])
@@ -69,4 +69,4 @@ export default compose<React.ComponentType>(
     connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStoreType>
     (mapStateToProps, {toggleIsFetching, updateCurrentPage, getDailyReports: requestDailyReportsThunkCreator}),
     withAuthRedirect
-)(DailyReportContainer);
+)(DailyReportsContainer);

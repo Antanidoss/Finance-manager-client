@@ -12,15 +12,17 @@
     margin-top: 20px;
 }
 .remove{
-    top: 200px;
+    position: relative;
+    top: 150px;
     left: 50px;
     float: left;
     padding-top: 50px;
     padding-left: 50px;
 }
 .update{
+    position: relative;
     float: right;
-    top: 200px;
+    top: 150px;
     right: 50px;
     padding-top: 50px;
     padding-right: 50px;

@@ -17,7 +17,7 @@ const Registration: React.FC<PropsType> = (props) => {
         props.registration(formData.name, formData.email, formData.password);
     }
     if (props.isAuthenticated){
-        return <Redirect to="/dailyReports"></Redirect>
+        return <Redirect to="/"></Redirect>
     }
     return (
         <div>

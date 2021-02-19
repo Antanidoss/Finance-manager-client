@@ -123,7 +123,6 @@ export const removeReportThunkCreator = (reportId: number): ThunkType => {
         return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
             let response = await reportsApi.removeReport(reportId);
             if (response.succeeded) {
-                debugger
                 dispatch(removeReport(reportId))
                 dispatch(toggleIsPopupsActive(true, "Отчет удалён"))
             }

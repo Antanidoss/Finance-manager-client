@@ -1,8 +1,8 @@
 import React from "react"
 import classes from "./Profile.module.css"
+import { PropsType } from "./ProfileContainer"
 
-let Profile = (props) => {
-    debugger
+const Profile: React.FC<PropsType> = (props) => {
     return (
         <div className={classes.profile}>
             <div className={classes.name}>
