@@ -11,10 +11,11 @@
 - reselect
 
 # **How it looks**
-![]()
+![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_4.png)
 ![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_5.png?raw=true)
-![]()
+![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_6.png)
 ![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_7.png?raw=true)
+![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_8.png)
 
 # How to start a project
 In the project directory, you can run:
