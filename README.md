@@ -17,7 +17,9 @@
 ![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_7.png?raw=true)
 ![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_8.png)
 
-# How to start a project
+# How to start a project.
+Install all packages:
+### `npm install`
 In the project directory, you can run:
 ### `npm start`
 
