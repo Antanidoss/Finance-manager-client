@@ -18,9 +18,9 @@
 ![](https://github.com/Antanidoss/Finance-manager-client/blob/master/imgForMd/Screenshot_8.png)
 
 # How to start a project.
-Install all packages:
+1. Install all packages:
 ### `npm install`
-In the project directory, you can run:
+2. In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
