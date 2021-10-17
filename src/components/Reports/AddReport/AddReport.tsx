@@ -34,12 +34,10 @@ const AddReportForm: React.FC<InjectedFormProps<AddReportFormValuesType>> = ({ha
     return (
         <form onSubmit={handleSubmit} className={classes.addReportForm}>
             <div className={classes.amountSpent}>
-                <Field placeholder="Сумма траты" component={Input} name="amountSpent" validate={[required, rangeFrom0ToMilion]}
-                       type="number"></Field>
+                <Field placeholder="Сумма траты" component={Input} name="amountSpent" validate={[required, rangeFrom0ToMilion]} type="number"></Field>
             </div>
             <div className={classes.descriptionsOfExpenses}>
-                <Field placeholder="Описания траты" component={Textarea} name="descriptionsOfExpenses"
-                       validate={[required, maxLength300, minLength3]}></Field>
+                <Field placeholder="Описания траты" component={Textarea} name="descriptionsOfExpenses" validate={[required, maxLength300, minLength3]}></Field>
             </div>
             {
                 error && <div className={classes.formSummaryError}>

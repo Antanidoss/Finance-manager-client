@@ -22,8 +22,6 @@ import {
 import {getIsAuthenticated} from "../../redux/users-selectors";
 import {AppStoreType} from "../../redux/redux-store";
 import { ReportType } from "../../types/types";
-import { toggleIsPopupsActive } from "../../redux/app-reducer";
-import {getIsPopupsActive, getPopupsMessages} from "../../redux/app-selectors";
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & RouteComponentProps<PathParamsType>;
 

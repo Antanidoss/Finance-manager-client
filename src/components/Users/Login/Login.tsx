@@ -17,7 +17,6 @@ const Login: React.FC<PropsType> = (props) => {
         props.auth(formData.email, formData.password, formData.isParsistent);
     }
     if (props.isAuthenticated){
-        debugger
         return <Redirect to={"/"}></Redirect>
     }
     return (
