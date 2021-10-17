@@ -1,7 +1,7 @@
-import {authMeThunkCreator} from "./user-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStoreType} from "./redux-store";
-import {Dispatch} from "redux";
+import {AnyAction, Dispatch} from "redux";
+import {getCurrentUserThunkCreator} from "./user-reducer"
 
 type InitialStateType = {
     initialized: boolean
@@ -56,7 +56,7 @@ type GetStateType = () => AppStoreType;
 
 export const initializeThunkCreator = (): ThunkType => {
     return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
-        await authMeThunkCreator()
+        await getCurrentUserThunkCreator();
         dispatch(initializedSuccess())
     }
 }

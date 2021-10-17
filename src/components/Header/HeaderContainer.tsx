@@ -1,15 +1,11 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
 import {getIsAuthenticated, getUserName} from "../../redux/users-selectors";
 import {AppStoreType} from "../../redux/redux-store";
 import { compose } from "redux";
-import {authMeThunkCreator} from "../../redux/user-reducer";
 
 const HeaderContainer: React.FC<PropsType> = (props) => {
-    useEffect(() => {
-        props.authMe();
-    })
     return <Header {...props}></Header>
 };
 
@@ -18,11 +14,7 @@ type MapStateToPropsType = {
     userName: string | null,
 }
 
-type MapDispatchToProps = {
-    authMe: typeof authMeThunkCreator
-}
-
-export type PropsType = MapStateToPropsType & MapDispatchToProps
+export type PropsType = MapStateToPropsType
 
 const mapStateToProps = (state: AppStoreType): MapStateToPropsType => ({
     isAuthenticated: getIsAuthenticated(state),
@@ -30,5 +22,5 @@ const mapStateToProps = (state: AppStoreType): MapStateToPropsType => ({
 });
 
 export default compose<React.ComponentType>(
-    connect<MapStateToPropsType, MapDispatchToProps, null, AppStoreType>(mapStateToProps, {authMe: authMeThunkCreator}))
+    connect<MapStateToPropsType, null, null, AppStoreType>(mapStateToProps))
 (HeaderContainer);

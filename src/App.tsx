@@ -11,6 +11,7 @@ import {useEffect} from "react";
 import {connect} from "react-redux";
 import Preloader from "./components/common/Preloader/Preloader";
 import {initializeThunkCreator, toggleIsPopupsActive} from "./redux/app-reducer";
+import {getCurrentUserThunkCreator} from "./redux/user-reducer"
 import RegistrationContainer from "./components/Users/Registration/RegistrationContainer";
 import AddReportContainer from "./components/Reports/AddReport/AddReportContainer";
 import {AppStoreType} from "./redux/redux-store";
@@ -23,6 +24,7 @@ import PopupsContainer from "./components/common/Popups/PopupsContainer";
 
 const App: React.FC<PropsType> = (props) => {
     useEffect(() => {
+        props.getCurrentUser();
         props.initialize();
     })
     if (!props.initialized) {
@@ -58,7 +60,8 @@ type MapStateToPropsType = {
 
 type MapDispatchToPropsType = {
     initialize: typeof initializeThunkCreator
-    toggleIsPopupsActive: typeof toggleIsPopupsActive
+    toggleIsPopupsActive: typeof toggleIsPopupsActive,
+    getCurrentUser: typeof getCurrentUserThunkCreator
 }
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType;
@@ -70,5 +73,5 @@ const mapStateToProps = (state: AppStoreType): MapStateToPropsType => ({
 })
 
 export default compose<React.ComponentType>(connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStoreType>
-(mapStateToProps, {initialize: initializeThunkCreator,  toggleIsPopupsActive: toggleIsPopupsActive}))(App)
+(mapStateToProps, {initialize: initializeThunkCreator,  toggleIsPopupsActive: toggleIsPopupsActive, getCurrentUser: getCurrentUserThunkCreator}))(App)
 
