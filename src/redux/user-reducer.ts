@@ -2,7 +2,6 @@ import {accountApi} from "../api/accountApi";
 import {stopSubmit} from "redux-form";
 import {AppStoreType} from "./redux-store";
 import {ThunkAction} from "redux-thunk";
-import {Dispatch} from "redux";
 
 export type InitialStateType = {
     isAuthenticated: boolean,
@@ -79,11 +78,9 @@ export const logout = (): LogoutType =>({
 
 type ActionsTypes = SetUserDataType | AuthType | LogoutType;
 type ThunkType = ThunkAction<Promise<void>, AppStoreType, unknown, ActionsTypes>;
-type GetStateType = () => AppStoreType;
 
 export const authThunkCreator = (userEmail: string, userPassword: string, isUserParsistent: boolean): ThunkType => {
-    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
-        debugger;
+    return async (dispatch, getState) => {
         let response = await accountApi.auth(userEmail, userPassword, isUserParsistent);
         if (response.data != null) {
             let user = response;
@@ -96,14 +93,14 @@ export const authThunkCreator = (userEmail: string, userPassword: string, isUser
 }
 
 export const logoutThunkCreator = (): ThunkType => {
-    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+    return async (dispatch, getState) => {
         await accountApi.logout();
         dispatch(logout());
     }
 }
 
 export const registrationThunkCreator = (name: string, email: string, password: string): ThunkType => {
-    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+    return async (dispatch, getState) => {
         let response = await accountApi.registration(name, email, password)
         if (!response.succeeded) {
             let action = stopSubmit("registration", {_error: response.errors});
@@ -113,9 +110,8 @@ export const registrationThunkCreator = (name: string, email: string, password: 
 }
 
 export const getCurrentUserThunkCreator = (): ThunkType => {
-    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
+    return async (dispatch, getState) => {
         let response = await accountApi.getCurrentUser();
-        debugger;
         if (response != null) {
             dispatch(auth(response.id, response.name, response.email, response.token));
         }

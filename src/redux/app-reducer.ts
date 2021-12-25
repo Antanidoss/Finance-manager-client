@@ -1,7 +1,6 @@
 import {ThunkAction} from "redux-thunk";
 import {AppStoreType} from "./redux-store";
-import {AnyAction, Dispatch} from "redux";
-import {getCurrentUserThunkCreator} from "./user-reducer"
+import {getCurrentUserThunkCreator} from "./user-reducer";
 
 type InitialStateType = {
     initialized: boolean
@@ -52,12 +51,14 @@ export const toggleIsPopupsActive = (isPopupsActive: boolean, message: string = 
 
 type ActionsTypes = InitializedSuccessType | ToggleIsPopupsActiveType;
 type ThunkType = ThunkAction<Promise<void>, AppStoreType, unknown, ActionsTypes>;
-type GetStateType = () => AppStoreType;
 
 export const initializeThunkCreator = (): ThunkType => {
-    return async (dispatch: Dispatch<ActionsTypes>, getState: GetStateType) => {
-        await getCurrentUserThunkCreator();
-        dispatch(initializedSuccess())
+    return async (dispatch, getState) => {
+        var promise = dispatch(getCurrentUserThunkCreator());
+
+        Promise.all([promise]).then(() => {
+            dispatch(initializedSuccess())
+        })
     }
 }
 

@@ -3,7 +3,6 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import classes from "./UpdateReport.module.css"
 import {Element} from "../../common/FormsControls/FormsControls";
 import {maxLengthCreator, minLengthCreator, range, required} from "../../../unitls/validators";
-import {updateReport} from "../../../redux/report-reducer";
 import {PropsType} from "./UpdateReportContainer";
 import {ReportType} from "../../../types/types";
 
@@ -14,7 +13,6 @@ type UpdateReportFormValuesType = {
 
 const UpdateReport: React.FC<PropsType> = (props) => {
     const onSubmit = (formData: UpdateReportFormValuesType) => {
-        debugger
         props.updateReport(formData.amountSpent, formData.descriptionsOfExpenses, props.report.id);
     }
     return (
