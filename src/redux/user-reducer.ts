@@ -113,7 +113,7 @@ export const getCurrentUserThunkCreator = (): ThunkType => {
     return async (dispatch, getState) => {
         let response = await accountApi.getCurrentUser();
         if (response != null) {
-            dispatch(auth(response.id, response.name, response.email, response.token));
+            dispatch(auth(response.id, response.userName, response.email, response.token));
         }
         else {
             initialState.isAuthenticated = false;
