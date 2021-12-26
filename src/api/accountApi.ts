@@ -10,7 +10,7 @@ type AuthResultType = {
 
 type UserType = {
     id: string,
-    name: string,
+    userName: string,
     email: string,
     token: string
 }
